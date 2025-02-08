@@ -3,13 +3,13 @@
   id: Scream
   name: chat-emote-name-scream
   category: Vocal
-  icon: Interface/Actions/scream.png
+  icon: _Impstation/Interface/Emotes/scream.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-scream"]
   chatTriggers:
     - scream
@@ -33,13 +33,13 @@
   id: Laugh
   name: chat-emote-name-laugh
   category: Vocal
-  icon: Interface/Emotes/laugh.png
+  icon: _Impstation/Interface/Emotes/laugh.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-laugh"]
   chatTriggers:
     - laugh
@@ -62,13 +62,12 @@
   id: Honk
   name: chat-emote-name-honk
   category: Vocal
-  icon: Interface/Emotes/honk.png
+  icon: _Impstation/Interface/Emotes/honk.png #imp
   whitelist:
     requireAll: true
     components:
     - Vocal
-    tags:
-    - SiliconEmotes
+    - BorgChassis
   chatMessages: ["chat-emote-msg-honk"]
   chatTriggers:
     - honk
@@ -80,13 +79,13 @@
   id: Sigh
   name: chat-emote-name-sigh
   category: Vocal
-  icon: Interface/Emotes/sigh.png
+  icon: _Impstation/Interface/Emotes/sigh.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-sigh"]
   chatTriggers:
     - sigh
@@ -97,13 +96,13 @@
   id: Whistle
   name: chat-emote-name-whistle
   category: Vocal
-  icon: Interface/Emotes/whistle.png
+  icon: _Impstation/Interface/Emotes/whistle.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-whistle"]
   chatTriggers:
     - whistle
@@ -114,13 +113,13 @@
   id: Crying
   name: chat-emote-name-crying
   category: Vocal
-  icon: Interface/Emotes/cry.png
+  icon: _Impstation/Interface/Emotes/cry.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-crying"]
   chatTriggers:
     - cry
@@ -135,13 +134,13 @@
   name: chat-emote-name-squish
   category: Vocal
   available: false
-  icon: Interface/Emotes/squish.png
+  icon: _Impstation/Interface/Emotes/squish.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-squish"]
   chatTriggers:
     - squish
@@ -153,13 +152,13 @@
   name: chat-emote-name-chitter
   category: Vocal
   available: false
-  icon: Interface/Emotes/chitter.png
+  icon: _Impstation/Interface/Emotes/chitter.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-chitter"]
   chatTriggers:
    - chitter
@@ -171,13 +170,13 @@
   name: chat-emote-name-squeak
   category: Vocal
   available: false
-  icon: Interface/Emotes/squeak.png
+  icon: _Impstation/Interface/Emotes/squeak.png #imp
   whitelist:
     components:
       - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-squeak"]
   chatTriggers:
    - squeak
@@ -189,13 +188,13 @@
   name: chat-emote-name-click
   category: Vocal
   available: false
-  icon: Interface/Emotes/click.png
+  icon: _Impstation/Interface/Emotes/click.png #imp
   whitelist:
     components:
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-click"]
   chatTriggers:
    - click
@@ -206,50 +205,32 @@
   id: Clap
   name: chat-emote-name-clap
   category: Hands
-  icon: Interface/Emotes/clap.png
+  icon: _Impstation/Interface/Emotes/clap.png #imp
   whitelist:
     components:
     - Hands
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-clap"]
   chatTriggers:
+    - clap
     - claps
     - clapping
     - clapped
 
 - type: emote
-  id: ClapSingle
-  name: chat-emote-name-clap-single
-  category: Hands
-  icon: Interface/Emotes/clap.png #TODO: Needs a sprite that distinguishes it better from clap
-  whitelist:
-    components:
-    - Hands
-  blacklist:
-    tags:
-    - SiliconEmotes
-  chatMessages: [ "chat-emote-msg-clap-single" ]
-  chatTriggers:
-    - clap
-    - claps their hands together
-    - claps her hands together
-    - claps his hands together
-    - claps its hands together
-
-- type: emote
   id: Snap
   name: chat-emote-name-snap
   category: Hands
-  icon: Interface/Emotes/snap.png
+  icon: _Impstation/Interface/Emotes/snap.png #imp
   whitelist:
     components:
     - Hands
   blacklist:
-    tags:
-    - SiliconEmotes
-  chatMessages: ["chat-emote-msg-snap"]
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-snap"] # snaps <{THEIR($ent)}> fingers?
   chatTriggers:
     - snap
     - snaps
@@ -269,13 +250,13 @@
   name: chat-emote-name-thump
   category: Hands
   available: false
-  icon: Interface/Emotes/tailslap.png
+  icon: _Impstation/Interface/Emotes/tailslap.png #imp
   whitelist:
     components:
     - Hands
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-thump"]
   chatTriggers:
     - thump
@@ -293,17 +274,39 @@
   id: Salute
   name: chat-emote-name-salute
   category: Hands
-  icon: Interface/Emotes/salute.png
+  icon: _Impstation/Interface/Emotes/salute.png #imp
   whitelist:
     components:
     - Hands
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-salute"]
   chatTriggers:
     - salute
     - salutes
+
+- type: emote
+  id: Crack
+  name: chat-emote-name-crack
+  category: Hands
+  icon: _Impstation/Interface/Emotes/knucklecrack.png #imp
+  whitelist:
+    components:
+    - Hands
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-crack"]
+  chatTriggers:
+    - crack knuckles
+    - cracks knuckles
+    - cracking knuckles
+    - cracked knuckles
+    - cracks their knuckles
+    - cracks her knuckles
+    - cracks his knuckles
+    - cracks its knuckles
 
 - type: emote
   id: Gasp
@@ -320,28 +323,29 @@
 - type: emote
   id: DefaultDeathgasp
   name: chat-emote-name-deathgasp
-  icon: Interface/Emotes/deathgasp.png
+  icon: _Impstation/Interface/Emotes/deathgasp.png #imp
   whitelist:
     components:
     - MobState
   chatMessages: ["chat-emote-msg-deathgasp"]
-  # chatTriggers: # DeltaV - Remove from the emote wheel
-  # - deathgasp
+  chatTriggers:
+  - deathgasp
 
 - type: emote
   id: MonkeyDeathgasp
   name: chat-emote-name-deathgasp
-  icon: Interface/Emotes/deathgasp.png
+  icon: _Impstation/Interface/Emotes/deathgasp.png #imp
   chatMessages: ["chat-emote-msg-deathgasp-monkey"]
 
 - type: emote
   id: Buzz
   name: chat-emote-name-buzz
   category: Vocal
-  icon: Interface/Emotes/buzz.png
+  icon: _Impstation/Interface/Emotes/buzz.png #imp
   whitelist:
     requireAll: true
     components:
+    - BorgChassis
     - Vocal
     tags:
     - SiliconEmotes
@@ -371,14 +375,14 @@
   name: chat-emote-name-chirp
   category: Vocal
   available: false
-  icon: Interface/Emotes/chirp.png
+  icon: _Impstation/Interface/Emotes/chirp.png #imp
   whitelist:
     components:
     - Nymph
     - Vocal
   blacklist:
-    tags:
-    - SiliconEmotes
+    components:
+    - BorgChassis
   chatMessages: ["chat-emote-msg-chirp"]
   chatTriggers:
     - chirp
@@ -391,10 +395,11 @@
   id: Beep
   name: chat-emote-name-beep
   category: Vocal
-  icon: Interface/Emotes/beep.png
+  icon: _Impstation/Interface/Emotes/beep.png #imp
   whitelist:
     requireAll: true
     components:
+    - BorgChassis
     - Vocal
     tags:
     - SiliconEmotes
@@ -409,10 +414,11 @@
   id: Chime
   name: chat-emote-name-chime
   category: Vocal
-  icon: Interface/Emotes/chime.png
+  icon: _Impstation/Interface/Emotes/chime.png #imp
   whitelist:
     requireAll: true
     components:
+    - BorgChassis
     - Vocal
     tags:
     - SiliconEmotes
@@ -427,10 +433,11 @@
   id: Buzz-Two
   name: chat-emote-name-buzztwo
   category: Vocal
-  icon: Interface/Emotes/buzztwo.png
+  icon: _Impstation/Interface/Emotes/buzztwo.png #imp
   whitelist:
     requireAll: true
     components:
+    - BorgChassis
     - Vocal
     tags:
     - SiliconEmotes
@@ -451,10 +458,11 @@
   id: Ping
   name: chat-emote-name-ping
   category: Vocal
-  icon: Interface/Emotes/ping.png
+  icon: _Impstation/Interface/Emotes/ping.png #imp
   whitelist:
     requireAll: true
     components:
+    - BorgChassis
     - Vocal
     tags:
     - SiliconEmotes
