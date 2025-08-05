@@ -30,6 +30,7 @@ public sealed class RulesSystem : EntitySystem
     {
         foreach (var rule in rules.Rules)
         {
+            Log.Debug("Checking rule {0} (value: {1})", rule.GetType().Name, rule.Check(EntityManager, uid));
             if (!rule.Check(EntityManager, uid))
                 return false;
         }

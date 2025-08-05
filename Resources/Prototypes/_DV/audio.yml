@@ -1,0 +1,23 @@
+- type: ambientMusic
+  id: Glimmer
+  sound:
+    params:
+      volume: -12
+    collection: AmbienceGlimmer
+  rules: HighGlimmer
+  priority: 5 # debug PLEASE change this before deltanedas murders you
+
+# Sound collections
+- type: soundCollection
+  id: AmbienceGlimmer
+  files:
+  - /Audio/_DV/Ambience/ambiglimmer1.ogg
+  - /Audio/_DV/Ambience/ambiglimmer2.ogg
+  - /Audio/_DV/Ambience/ambiglimmer3.ogg
+
+# Rules
+- type: rules
+  id: HighGlimmer
+  rules:
+  - !type:HighGlimmerRule
+    threshold: 700
