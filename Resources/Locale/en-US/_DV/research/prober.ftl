@@ -1,0 +1,1 @@
+glimmer-prober-off-station-message = The prober fizzles and sparks, unable to touch the noosphere.

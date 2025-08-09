@@ -27,6 +27,9 @@ using Robust.Shared.Random;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
 using Content.Server.Research.Components;
+using Content.Server.Station.Components;
+using Content.Server.Station.Systems;
+using Content.Shared.Popups;
 
 namespace Content.Server.Psionics.Glimmer
 {
@@ -47,6 +50,8 @@ namespace Content.Server.Psionics.Glimmer
         [Dependency] private readonly RevenantSystem _revenantSystem = default!;
         [Dependency] private readonly SharedTransformSystem _transform = default!;
         [Dependency] private readonly SharedPointLightSystem _pointLightSystem = default!;
+        [Dependency] private readonly StationSystem _station = default!;
+        [Dependency] private readonly SharedPopupSystem _popup = default!;
 
         public float Accumulator = 0;
         public const float UpdateFrequency = 15f;
@@ -67,6 +72,7 @@ namespace Content.Server.Psionics.Glimmer
             SubscribeLocalEvent<SharedGlimmerReactiveComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
             SubscribeLocalEvent<SharedGlimmerReactiveComponent, AnchorStateChangedEvent>(OnAnchorStateChanged);
             SubscribeLocalEvent<SharedGlimmerReactiveComponent, AttemptMeleeThrowOnHitEvent>(OnMeleeThrowOnHitAttempt);
+            SubscribeLocalEvent<SharedGlimmerReactiveComponent, GridSplitEvent>(OnGridSplit);
         }
 
         /// <summary>
@@ -100,6 +106,16 @@ namespace Content.Server.Psionics.Glimmer
             if (component.RequiresApcPower)
                 if (TryComp(uid, out ApcPowerReceiverComponent? apcPower))
                     isEnabled = apcPower.Powered;
+
+            // prevent glimmer generation if off-station
+            var owningStation = _station.GetOwningStation(uid);
+            var xform = Transform(uid);
+            if (owningStation == null || !TryComp(owningStation.Value, out StationDataComponent? data) || _station.GetLargestGrid(data) != xform.GridUid)
+            {
+                _popup.PopupEntity(Loc.GetString("glimmer-prober-off-station-message"), uid, PopupType.Medium);
+                Spawn("EffectSparks", xform.Coordinates);
+                isEnabled = false;
+            }
 
             _appearanceSystem.SetData(uid, GlimmerReactiveVisuals.GlimmerTier, isEnabled ? currentGlimmerTier : GlimmerTier.Minimal);
 
@@ -244,6 +260,14 @@ namespace Content.Server.Psionics.Glimmer
             {
                 AnchorOrExplode(uid);
             }
+        }
+
+        /// <summary>
+        /// Force update on grid split to check if entity is still on-station.
+        /// </summary>
+        private void OnGridSplit(EntityUid uid, SharedGlimmerReactiveComponent component, GridSplitEvent args)
+        {
+            UpdateEntityState(uid, component, LastGlimmerTier, 0);
         }
 
         public void BeamRandomNearProber(EntityUid prober, int targets, float range = 10f)
