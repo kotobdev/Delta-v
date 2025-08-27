@@ -259,8 +259,6 @@
     # Begin DeltaV Additions
     Gasp: 
       collection: VoxGasp
-      params:
-        volume: 10
     DefaultDeathgasp:
       path: /Audio/_DV/Effects/Gasp/vox_deathgasp_1.ogg
     # End DeltaV Additions

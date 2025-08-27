@@ -19,10 +19,3 @@
   id: VoxCry
   files:
     - /Audio/_Impstation/Voice/Vox/voxcry.ogg
-
-- type: soundCollection
-  id: VoxGasp
-  files:
-  - /Audio/_Impstation/Voice/Vox/voxgasp1.ogg
-  - /Audio/_Impstation/Voice/Vox/voxgasp2.ogg
-  - /Audio/_Impstation/Voice/Vox/voxgasp3.ogg
