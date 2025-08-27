@@ -18,4 +18,5 @@
 - type: soundCollection
   id: VoxCry
   files:
+
     - /Audio/_Impstation/Voice/Vox/voxcry.ogg
