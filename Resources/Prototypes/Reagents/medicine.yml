@@ -114,10 +114,9 @@
   metabolisms:
     Medicine:
       effects:
-      - !type:GenericStatusEffect
-        key: Drunk
-        time: 6.0
-        type: Remove
+      - !type:ReduceDrunkTimeByDivision
+        divisionFactor: 3.0  # Divides drunk time by 3, much more effective against high drunkedness
+        minimumTimeRemoved: 8.0  # Still effective for low drunk levels
       - !type:HealthChange
         damage:
           types:

@@ -419,3 +419,9 @@ reagent-effect-guidebook-plant-seeds-remove =
         [1] Removes the
         *[other] remove the
     } seeds of the plant
+
+reagent-effect-guidebook-reduce-drunk-time-division =
+    { $chance ->
+        [1] Reduces
+        *[other] reduce
+    } drunk time by dividing it by {NATURALFIXED($factor, 1)} (minimum {NATURALFIXED($minimum, 1)} seconds removed)
