@@ -420,6 +420,7 @@ reagent-effect-guidebook-plant-seeds-remove =
         *[other] remove the
     } seeds of the plant
 
+# DeltaV - Localization for new ReduceDrunkTimeByDivision effect
 reagent-effect-guidebook-reduce-drunk-time-division =
     { $chance ->
         [1] Reduces

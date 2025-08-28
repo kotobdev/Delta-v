@@ -114,7 +114,7 @@
   metabolisms:
     Medicine:
       effects:
-      - !type:ReduceDrunkTimeByDivision
+      - !type:ReduceDrunkTimeByDivision # DeltaV - Replace fixed time removal with division-based reduction for better effectiveness against high drunkedness
         divisionFactor: 3.0  # Divides drunk time by 3, much more effective against high drunkedness
         minimumTimeRemoved: 8.0  # Still effective for low drunk levels
       - !type:HealthChange
