@@ -57,3 +57,15 @@
       state: icon
     useDelay: 30
     event: !type:CoughItemActionEvent
+
+- type: entity
+  id: ActionToggleEyeCursorOffset
+  name: action-name-toggle-eye-cursor-offset
+  description: action-description-toggle-eye-cursor-offset
+  components:
+  - type: InstantAction
+    itemIconStyle: BigAction
+    priority: -30
+    icon: Interface/Actions/eyeopen.png
+    iconOn: Interface/Actions/eyeclose.png
+    event: !type:ToggleEyeCursorOffsetActionEvent
