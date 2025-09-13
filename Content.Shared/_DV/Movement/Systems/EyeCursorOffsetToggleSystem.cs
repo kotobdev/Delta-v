@@ -8,6 +8,15 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._DV.Movement.Systems;
 
+/// <summary>
+/// System that handles toggling EyeCursorOffset functionality on and off.
+/// 
+/// Usage: Add both EyeCursorOffset and EyeCursorOffsetToggle components to an entity.
+/// The entity will gain an action to toggle the cursor offset on and off.
+/// 
+/// Unlike binoculars, this doesn't require CursorOffsetRequiresWield, making it suitable
+/// for entities that should always have the toggle capability regardless of wielding state.
+/// </summary>
 public sealed class EyeCursorOffsetToggleSystem : EntitySystem
 {
     [Dependency] private readonly INetManager _netManager = default!;

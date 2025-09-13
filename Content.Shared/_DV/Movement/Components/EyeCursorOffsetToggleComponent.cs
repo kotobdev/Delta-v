@@ -10,7 +10,7 @@ namespace Content.Shared._DV.Movement.Components;
 /// Similar to EyeClosingComponent but for cursor offset functionality.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public partial class EyeCursorOffsetToggleComponent : Component
+public sealed partial class EyeCursorOffsetToggleComponent : Component
 {
     /// <summary>
     /// The prototype to grant to enable cursor offset toggling action.
