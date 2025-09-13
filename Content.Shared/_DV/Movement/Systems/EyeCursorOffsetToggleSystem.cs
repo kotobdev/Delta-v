@@ -10,7 +10,6 @@ namespace Content.Shared._DV.Movement.Systems;
 
 public sealed class EyeCursorOffsetToggleSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;

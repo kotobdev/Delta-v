@@ -1,0 +1,16 @@
+# Test entity for EyeCursorOffsetToggle functionality
+- type: entity
+  id: TestEyeCursorOffsetToggle
+  name: Eye Cursor Offset Test Device
+  description: A test device to try out the eye cursor offset toggle functionality.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+  - type: Item
+    sprite: Objects/Tools/multitool.rsi
+  - type: EyeCursorOffset
+    maxOffset: 3
+    pvsIncrease: 0.3
+  - type: EyeCursorOffsetToggle
+    eyeCursorOffsetToggleAction: ActionToggleEyeCursorOffset
