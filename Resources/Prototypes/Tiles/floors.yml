@@ -1909,6 +1909,7 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
+  weather: true # DeltaV
 
 #Hull tiles
 - type: tile
