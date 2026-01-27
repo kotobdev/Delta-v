@@ -6,12 +6,12 @@ namespace Content.Shared._DV.AkashicFold;
 /// <summary>
 /// Prototype for any ruin that spawns in the Akashic Fold.
 /// </summary>
-[Prototype()]
+[Prototype]
 public sealed partial class AkashicRuinPrototype : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; } = default!;
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Relative directory path to the given grid, i.e. `Maps/_DV/AkashicFold/Ruins/example.yml`

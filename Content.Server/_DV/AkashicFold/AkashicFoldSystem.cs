@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using Content.Server._DV.Planet;
 using Content.Server.GameTicking.Events;
 using Content.Server.Parallax;
@@ -20,6 +22,7 @@ public sealed class AkashicFoldSystem : EntitySystem
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly PlanetSystem _planet = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
 
     private readonly ProtoId<PlanetPrototype> _foldPlanet = "AkashicFold";
     private readonly ResPath _baseGridPath = new("Maps/_DV/AkashicFold/akashic_base.yml");
@@ -45,6 +48,7 @@ public sealed class AkashicFoldSystem : EntitySystem
         _mapId = Comp<MapComponent>(_mapEntUid.Value).MapId;
 
         LoadFoldGrid(_baseGridPath, new Vector2i(0, 0)); // base camp, always centered
+        Log.Info("hiiii helloo :3");
         PlaceRuins();
 
         _map.InitializeMap(map);
@@ -56,7 +60,41 @@ public sealed class AkashicFoldSystem : EntitySystem
         if (_mapEntUid == null)
             return;
 
-        // to get available ruins: _proto.EnumeratePrototypes<AkashicRuinPrototype>().ToList();
+        var ruins = _proto.EnumeratePrototypes<AkashicRuinPrototype>().ToList();
+
+        if (ruins.Count == 0) // no ruins available
+        {
+            Log.Warning("no ruins available");
+            return;
+        }
+
+
+        var query = EntityQueryEnumerator<TransformComponent, AkashicPoiIndicatorComponent>();
+
+        List<Vector2> poiIndicators = new();
+
+        while (query.MoveNext(out var ent, out var transform, out var indicator))
+        {
+            Log.Info("indicator FOUND: " + ent);
+            poiIndicators.Add(_transform.GetMapCoordinates(transform).Position);
+        }
+
+        if (poiIndicators.Count == 0)
+            Log.Info("ermmm no indicators...");
+
+        // evil gamer math to align the locations so (0,0) is the center of all of them
+        var center = Vector2.Zero;
+        foreach (var v in poiIndicators)
+        {
+            center += v;
+        }
+        center /= poiIndicators.Count;
+
+        for (var i = 0; i < poiIndicators.Count; i++)
+        {
+            poiIndicators[i] -= center;
+            Log.Info("AKASHIC POI UUUH " + poiIndicators[i]);
+        }
     }
 
     private bool LoadGridRuin(AkashicRuinPrototype ruin, Vector2i coords)

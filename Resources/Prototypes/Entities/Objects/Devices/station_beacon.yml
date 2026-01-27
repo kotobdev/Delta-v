@@ -333,6 +333,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-mystagogue  #Delta V - Renamed
+  - type: AkashicPoiIndicator # DeltaV
 
 - type: entity
   parent: DefaultStationBeaconScience
@@ -382,6 +383,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-cargo-bay
+  - type: AkashicPoiIndicator # DeltaV
 
 - type: entity
   parent: DefaultStationBeaconSupply
@@ -415,6 +417,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-ce
+  - type: AkashicPoiIndicator # DeltaV
 
 - type: entity
   parent: DefaultStationBeaconEngineering
@@ -587,6 +590,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-bar
+  - type: AkashicPoiIndicator # DeltaV
 
 - type: entity
   parent: DefaultStationBeaconService
@@ -612,6 +616,7 @@
   - type: NavMapBeacon
     defaultText: station-beacon-ai
     color: "#5ed7aa"
+  - type: AkashicPoiIndicator # DeltaV
 
 - type: entity
   parent: DefaultStationBeaconAI
