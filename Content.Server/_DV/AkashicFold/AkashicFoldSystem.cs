@@ -28,6 +28,8 @@ public sealed class AkashicFoldSystem : EntitySystem
     private readonly ResPath _baseGridPath = new("Maps/_DV/AkashicFold/akashic_base.yml");
     private static EntityUid? _mapEntUid;
     private static MapId _mapId;
+    private static float _scalingFactor = 10f; // for the love of god move all this shit to a comp
+    private static Vector2 _realworldCenter = new(0, 0); // FOR THE LOVE OF GOD MOVE ALL THIS SHIT TO A COMP
 
     public override void Initialize()
     {
@@ -90,6 +92,9 @@ public sealed class AkashicFoldSystem : EntitySystem
         }
         center /= poiIndicators.Count;
 
+        _realworldCenter = center;
+        Log.Info("Akashic Fold realspace center coords: " + _realworldCenter);
+
         for (var i = 0; i < poiIndicators.Count; i++)
         {
             poiIndicators[i] -= center;
@@ -128,5 +133,16 @@ public sealed class AkashicFoldSystem : EntitySystem
             Comp<MapGridComponent>(_mapEntUid.Value));
 
         return spawned;
+    }
+
+    public Vector2 RealToFoldCoordinates(Vector2i coords)
+    {
+        return (coords - _realworldCenter) * _scalingFactor;
+    }
+
+    public MapId GetMapId()
+    {
+        //FOR THE LOVE OF GOD!!! COMPONENT!!! PLEASE!!!
+        return _mapId;
     }
 }

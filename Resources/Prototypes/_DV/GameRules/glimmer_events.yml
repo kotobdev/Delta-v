@@ -233,3 +233,12 @@
     minimumGlimmer: 300
     maximumGlimmer: 700
   - type: GlimmerRestyleRule
+
+- type: entity
+  id: GlimmerRandomFoldTransport
+  parent: BaseGlimmerEvent
+  components:
+  - type: GlimmerEvent
+    minimumGlimmer: 400
+    maximumGlimmer: 1000
+  - type: RandomFoldTransportRule
