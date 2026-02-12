@@ -135,6 +135,7 @@ public sealed class AkashicFoldSystem : EntitySystem
         return spawned;
     }
 
+    // this entire file sucks, make this return a MapCoordinates i think, then remove GetMapId probably
     public Vector2 RealToFoldCoordinates(Vector2i coords)
     {
         return (coords - _realworldCenter) * _scalingFactor;

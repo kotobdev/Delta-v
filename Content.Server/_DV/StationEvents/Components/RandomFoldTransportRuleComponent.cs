@@ -4,10 +4,10 @@ namespace Content.Server._DV.StationEvents.Components;
 public sealed partial class RandomFoldTransportRuleComponent : Component
 {
     [DataField]
-    public TimeSpan MinimumTime = TimeSpan.FromSeconds(25);
+    public TimeSpan MinimumTime = TimeSpan.FromSeconds(60);
 
     [DataField]
-    public TimeSpan MaximumTime = TimeSpan.FromSeconds(50);
+    public TimeSpan MaximumTime = TimeSpan.FromSeconds(70);
 
     [DataField]
     public int MinimumTargets = 1;

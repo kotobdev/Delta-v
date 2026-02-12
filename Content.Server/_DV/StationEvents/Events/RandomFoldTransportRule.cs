@@ -54,7 +54,7 @@ public sealed class RandomFoldTransportRule : StationEventSystem<RandomFoldTrans
             Log.Info("We have a transport target: " + Name(transportTarget));
             //WAUGH.... SPOOKY CODE HERE... SPOOOOOOOKY...
             var time = _random.Next(comp.MinimumTime, comp.MaximumTime);
-            _foldTransport.TransportActorToFold(transportTarget, time);
+            _foldTransport.PrepareTransportToFold(transportTarget, time);
         }
     }
 }
