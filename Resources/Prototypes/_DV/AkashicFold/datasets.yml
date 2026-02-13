@@ -1,0 +1,5 @@
+- type: localizedDataset
+  id: FoldTransportMinorFlavor
+  values:
+    prefix: fold-transport-minor-flavor-
+    count: 11

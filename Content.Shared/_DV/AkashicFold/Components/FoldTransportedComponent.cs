@@ -1,6 +1,8 @@
+using Content.Shared.Dataset;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Components;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._DV.AkashicFold;
@@ -13,7 +15,7 @@ public sealed partial class FoldTransportedComponent : Component
 {
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField, AutoPausedField]
-    public TimeSpan? ExitFoldTime = default!;
+    public TimeSpan? ExitFoldTime = default!; // TODO: remove these defaults what
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField, AutoPausedField]
@@ -24,10 +26,16 @@ public sealed partial class FoldTransportedComponent : Component
     public TimeSpan? EnterFoldTime = default!;
 
     [DataField]
+    public TimeSpan? NextFlavorTextTime = default!;
+
+    [DataField]
     public SoundSpecifier EnterWarningSound = new SoundPathSpecifier("/Audio/_DV/Effects/clang2.ogg");
 
     [DataField]
     public SoundSpecifier TransportedAmbientTrack = new SoundPathSpecifier("/Audio/_DV/AkashicFold/white_river.ogg");
+
+    [DataField]
+    public ProtoId<LocalizedDatasetPrototype> TransportMinorFlavorTexts = "FoldTransportMinorFlavor";
 
     [DataField]
     public EntityUid FoldBody;

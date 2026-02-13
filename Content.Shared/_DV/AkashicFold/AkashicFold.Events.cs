@@ -1,13 +1,10 @@
+using Robust.Shared.Serialization;
+
 namespace Content.Shared._DV.AkashicFold;
 
-/// <summary>
-/// This handles...
-/// </summary>
-public sealed class AkashicFold_Events : EntitySystem
+// This is communicated to the client so they can clear the flavor text on send.
+[Serializable, NetSerializable]
+public sealed class SentToFoldEvent : EntityEventArgs
 {
-    /// <inheritdoc/>
-    public override void Initialize()
-    {
-        
-    }
+
 }

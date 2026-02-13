@@ -80,7 +80,7 @@ public sealed class FoldTransportSystem : EntitySystem
         // MOVE ALL LOGIC BELOW THIS LINE TO ITS OWN FUNCTION, CALLED IN UPDATE LOOP!!!
     }
 
-    public void TransportToFold(Entity<ActorComponent> ent, FoldTransportedComponent foldTransported)
+    private void TransportToFold(Entity<ActorComponent> ent, FoldTransportedComponent foldTransported)
     {
         if (!TryComp<MindContainerComponent>(ent, out var mindContainer) || !mindContainer.HasMind)
             return; // i love redundancy
@@ -91,6 +91,10 @@ public sealed class FoldTransportSystem : EntitySystem
             Log.Info("Fold cloning FAILED for entity: " + Name(ent));
             return;
         }
+
+        // make sure this happens BEFORE transfer
+        var ev = new SentToFoldEvent();
+        RaiseNetworkEvent(ev, ent.Comp.PlayerSession);
 
         var mindEnt = mindContainer.Mind.Value;
         _mind.TransferTo(mindEnt, clone);
