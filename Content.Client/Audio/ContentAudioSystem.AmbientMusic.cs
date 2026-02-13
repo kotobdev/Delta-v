@@ -261,4 +261,12 @@ public sealed partial class ContentAudioSystem
         FadeOut(_ambientMusicStream);
         _ambientMusicStream = null;
     }
+
+    // Begin DeltaV - timed ambient music pause
+    public void PauseAmbientMusic(TimeSpan time)
+    {
+        _ambientMusicStream = _audio.Stop(_ambientMusicStream);
+        _nextAudio = _timing.CurTime + time + _random.Next(_minAmbienceTime, _maxAmbienceTime);
+    }
+    // End DeltaV - timed ambient music pause
 }

@@ -93,7 +93,7 @@ public sealed class FoldTransportSystem : EntitySystem
         }
 
         // make sure this happens BEFORE transfer
-        var ev = new SentToFoldEvent();
+        var ev = new SentToFoldEvent(foldTransported.ExitFoldTime - foldTransported.ExitFoldAudioTime);
         RaiseNetworkEvent(ev, ent.Comp.PlayerSession);
 
         var mindEnt = mindContainer.Mind.Value;

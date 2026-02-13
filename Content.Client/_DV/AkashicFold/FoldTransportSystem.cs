@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Audio;
 using Content.Shared._DV.AkashicFold;
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Map;
@@ -18,6 +19,7 @@ public sealed class FoldTransportSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly FoldTextDisplaySystem _foldTextDisplay = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly ContentAudioSystem _audio = default!;
 
     // NOTE: hey, gamer! you're in client now! go mute ambient audio for the duration, please!
 
@@ -32,6 +34,10 @@ public sealed class FoldTransportSystem : EntitySystem
     {
         Log.Info("hey yeah!! we got the networkevent!! yay!!");
         _foldTextDisplay.RemoveAllLabels();
+        if (msg.Duration != null)
+        {
+            _audio.PauseAmbientMusic(msg.Duration.Value);
+        }
     }
 
     // TODO: collapse this into functions
