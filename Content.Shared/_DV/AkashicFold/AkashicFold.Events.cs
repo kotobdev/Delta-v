@@ -13,3 +13,10 @@ public sealed class SentToFoldEvent : EntityEventArgs
         Duration = duration;
     }
 }
+
+// Client needs to perform some shader stuff
+[Serializable, NetSerializable]
+public sealed class PrepareSendToFoldEvent : EntityEventArgs
+{
+
+}

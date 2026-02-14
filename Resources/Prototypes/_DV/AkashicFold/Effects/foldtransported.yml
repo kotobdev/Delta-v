@@ -1,0 +1,6 @@
+- type: ssdIcon
+  id: FoldTransportedSSDIcon
+  icon:
+    sprite: /Textures/_DV/Effects/foldtransportedssd.rsi
+    state: icon
+  locationPreference: Right # change this to right

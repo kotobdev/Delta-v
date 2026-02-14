@@ -1,4 +1,5 @@
 using Content.Shared.Dataset;
+using Content.Shared.StatusIcon;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Components;
 using Robust.Shared.GameStates;
@@ -36,6 +37,9 @@ public sealed partial class FoldTransportedComponent : Component
 
     [DataField]
     public ProtoId<LocalizedDatasetPrototype> TransportMinorFlavorTexts = "FoldTransportMinorFlavor";
+
+    [DataField]
+    public ProtoId<SsdIconPrototype> StatusIcon = "FoldTransportedSSDIcon";
 
     [DataField]
     public EntityUid FoldBody;
