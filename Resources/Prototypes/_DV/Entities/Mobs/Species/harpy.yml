@@ -6,6 +6,10 @@
   abstract: true
   components:
   - type: HarpySinger
+  - type: Flight # EE - Flight
+    isLayerAnimated: true
+    layer: "/Textures/_EE/Mobs/Customization/Harpy/harpy_wings.rsi"
+    animationKey: "Flap"
   - type: Instrument
     allowPercussion: false
     program: 52
@@ -114,11 +118,11 @@
   - type: Speech
     speechSounds: Harpy
     speechVerb: Harpy
-    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr', 'Growl', 'Bark', 'Snarl', 'Whine', 'Howl', 'Awoo', 'HarpyHonk', 'HarpyRing', 'HarpyPew', 'HarpyBang', 'HarpyBeep', 'HarpyRev', 'HarpyCaw', 'HarpySquish', 'Chitter', 'Chirp', 'Squeak', 'Click', 'Gnash']
+    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr', 'Growl', 'Bark', 'Snarl', 'Whine', 'Howl', 'Awoo', 'Honk', 'HarpyRing', 'HarpyPew', 'HarpyBang', 'Beep', 'HarpyRev', 'HarpyCaw', 'Squish', 'Chitter', 'Chirp', 'Squeak', 'Click', 'Gnash', 'HarpyQuack', 'HarpySquawk', 'Moo', 'Baa']
   - type: Vocal
     sounds:
-      Male: SoundsHarpy
-      Female: SoundsHarpy
+      Male: SoundsHarpyMale
+      Female: SoundsHarpyFemale
       Unsexed: SoundsHarpy
   - type: InstrumentVisuals
   - type: GenericVisualizer
@@ -128,8 +132,6 @@
           False: {visible: false}
           True: {visible: true}
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.5
-    baseSprintSpeed: 5.0
     weightlessAcceleration: 2.5
   - type: Inventory
     speciesId: harpy
@@ -148,13 +150,11 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
-  - type: FootPrints # DeltaV port from EE, blood splatter
-    leftBarePrint: "footprint-left-bare-lizard" # DeltaV port from EE, blood splatter
-    rightBarePrint: "footprint-right-bare-lizard" # DeltaV port from EE, blood splatter
+    - OviniaEmotes
 
 - type: entity
   save: false
-  name: Urist McHands
+  name: Urist McHarpy
   parent: MobHumanDummy
   id: MobHarpyDummy
   categories: [ HideSpawnMenu ]
@@ -217,22 +217,37 @@
       - map: [ "head" ]
 
 - type: entity
+  parent: BaseAction
   id: ActionHarpyPlayMidi
   name: Play MIDI
   description: Sing your heart out! Right click yourself to set an instrument.
   components:
-  - type: InstantAction
+  - type: Action
     checkCanInteract: false
     icon: _DV/Interface/Actions/harpy_sing.png
+  - type: InstantAction
     event: !type:OpenUiActionEvent
       key: enum.InstrumentUiKey.Key
 
 - type: entity
+  parent: BaseAction
   id: ActionSyrinxChangeVoiceMask
   name: Set name
   description: Change the name others hear to something else.
   components:
-  - type: InstantAction
+  - type: Action
     icon: _DV/Interface/Actions/harpy_syrinx.png
     itemIconStyle: BigAction
-    event: !type:VoiceMaskSetNameEvent
+
+- type: entity
+  id: ActionToggleFlight
+  name: Fly
+  description: Make use of your wings to fly. Beat the flightless bird allegations.
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    icon: { sprite: _EE/Interface/Actions/flight.rsi, state: flight_off }
+    iconOn: { sprite : _EE/Interface/Actions/flight.rsi, state: flight_on }
+    checkCanInteract: false
+  - type: InstantAction
+    event: !type:ToggleFlightEvent

@@ -66,6 +66,16 @@
     sprite: Objects/Specific/Medical/implanter.rsi
     state: implanter0
   product: CrateWatchdogImplants
-  cost: 18000
+  cost: 9000
+  category: Armory
+  group: market
+
+- type: cargoProduct
+  id: ArmoryNT3
+  icon:
+    sprite: _DV/Objects/Weapons/Guns/LMGs/NT-3.rsi
+    state: icon
+  product: CrateNT3
+  cost: 13000
   category: Armory
   group: market

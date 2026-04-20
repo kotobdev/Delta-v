@@ -1,5 +1,5 @@
 - type: reagent
-  id: PsionicRegenerationEssence
+  id: Prometheum
   name: reagent-name-prometheum
   group: Biological
   desc: reagent-desc-prometheum
@@ -23,17 +23,17 @@
         factor: -3
       - !type:SatiateHunger
         factor: -3
-      - !type:ModifyBleedAmount
+      - !type:ModifyBleed
         amount: -1
       - !type:ModifyBloodLevel
         amount: 2
+      - !type:EvenHealthChange
+        damage:
+          Burn: -4
+          Brute: -4
       - !type:HealthChange
         damage:
-          groups:
-            Burn: -5
-            Brute: -4
           types:
-            Caustic: -3
             Poison: -3
             Bloodloss: -3
 
@@ -56,42 +56,11 @@
         damage:
           groups:
             Toxin: 2
-      - !type:ChemRemovePsionic
+      - !type:RemovePsionicAbilities
         conditions:
-        - !type:ReagentThreshold
+        - !type:ReagentCondition
           reagent: SoulbreakerToxin
           min: 5
-
-- type: reagent
-  id: LotophagoiOil
-  name: reagent-name-lotophagoi-oil
-  group: Narcotics
-  desc: reagent-desc-lotophagoi-oil
-  flavor: enthralling
-  color: "#FFBF00"
-  physicalDesc: reagent-physical-desc-overpowering
-  metabolisms:
-    Narcotic:
-      metabolismRate: 0.2
-      effects:
-      - !type:GenericStatusEffect
-        key: SeeingRainbows
-        component: SeeingRainbows
-        type: Add
-        time: 5
-        refresh: false
-      - !type:ChemRerollPsionic
-        bonusMultiplier: 4
-        conditions:
-        - !type:ReagentThreshold
-          reagent: LotophagoiOil
-          min: 20
-      - !type:GenericStatusEffect
-        key: Stutter
-        component: ScrambledAccent
-      - !type:GenericStatusEffect
-        key: SlurredSpeech
-        component: TelepathicRepeater
 
 - type: reagent
   id: Ectoplasm

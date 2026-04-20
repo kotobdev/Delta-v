@@ -1,8 +1,7 @@
-using Content.Server.Power.Components;
+using Content.Shared.Power.Components;
 using Content.Shared._EE.Silicon.Systems;
 using Content.Shared.Bed.Sleep;
-using Content.Server._EE.Silicon.Charge;
-using Content.Server._EE.Power.Components;
+using Content.Server._DV.Silicons.Charge; // DeltaV - Moved IPC charge to shared and split into server/client
 using Content.Server.Humanoid;
 using Content.Shared.Humanoid;
 
@@ -11,7 +10,7 @@ namespace Content.Server._EE.Silicon.Death;
 public sealed class SiliconDeathSystem : EntitySystem
 {
     [Dependency] private readonly SleepingSystem _sleep = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
+    [Dependency] private readonly SiliconDrainSystem _silicon = default!; // DeltaV - Renamed type from "Charge" to "Drain" to disambiguate
     [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearanceSystem = default!;
 
     public override void Initialize()
@@ -47,7 +46,7 @@ public sealed class SiliconDeathSystem : EntitySystem
             return;
 
         EntityManager.EnsureComponent<SleepingComponent>(uid);
-        EntityManager.EnsureComponent<ForcedSleepingComponent>(uid);
+        EntityManager.EnsureComponent<ForcedSleepingStatusEffectComponent>(uid);
 
         if (TryComp(uid, out HumanoidAppearanceComponent? humanoidAppearanceComponent))
         {
@@ -62,7 +61,7 @@ public sealed class SiliconDeathSystem : EntitySystem
 
     private void SiliconUnDead(EntityUid uid, SiliconDownOnDeadComponent siliconDeadComp, BatteryComponent? batteryComp, EntityUid batteryUid)
     {
-        RemComp<ForcedSleepingComponent>(uid);
+        RemComp<ForcedSleepingStatusEffectComponent>(uid);
         _sleep.TryWaking(uid, true, null);
 
         siliconDeadComp.Dead = false;

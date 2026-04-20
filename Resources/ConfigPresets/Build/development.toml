@@ -4,6 +4,9 @@ lobbyenabled = false
 # Dev map for faster loading & convenience
 map = "Dev"
 role_timers = false
+admin_job_tracking = true
+role_loadout_timers = false
+
 contraband_examine = false # DeltaV
 secret_weight_prototype = "SecretDeltaV" # DeltaV
 role_timer_override = "DeltaV" # DeltaV
@@ -41,9 +44,10 @@ preload_grids = false
 
 [admin]
 see_own_notes = true
+new_player_threshold = 120
 
 [ic]
-random_characters = true
+random_characters = false # DeltaV - disable development random characters
 random_species_weights = ""
 ssd_sleep_time = 3600
 
@@ -51,4 +55,4 @@ ssd_sleep_time = 3600
 rules_file = "DeltaVRuleset"
 
 [control] # DeltaV
-storage_limit = 2
+storage_limit = 3

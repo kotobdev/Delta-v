@@ -38,6 +38,7 @@
     quickEquip: false
     slots:
     - back
+    - suitStorage # DeltaV addition
   - type: Tool
     qualities:
       - Prying
@@ -61,7 +62,7 @@
 - type: entity
   id: FireAxeFlaming
   name: fire axe
-  parent: [ BaseSyndicateContraband, FireAxe ]
+  parent: [BaseSyndicateContraband, FireAxe]
   description: Why fight fire with an axe when you can fight with fire and axe? Now featuring rugged rubberized handle!
   components:
   - type: MeleeWeapon
@@ -76,6 +77,7 @@
     quickEquip: false
     slots:
     - back
+    - suitStorage # DeltaV addition
   - type: Tool
     qualities:
     - Prying # DeltaV - Makes so it can only pry tiles, not plates. #1844

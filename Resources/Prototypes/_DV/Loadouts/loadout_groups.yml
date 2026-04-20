@@ -65,6 +65,14 @@
   - ScarfGreen
   - ScarfBrown
 
+## Clown
+- type: loadoutGroup
+  id: ClownMask
+  name: loadout-group-clown-mask
+  loadouts:
+  - ClownMask
+  - BlushingClownMask
+
 ## Mime
 - type: loadoutGroup
   id: MimeNeck
@@ -233,6 +241,7 @@
   loadouts:
   - SalvageCloak
   - ScarfBrown
+  - SalvageMantle
 
 - type: loadoutGroup
   id: SalvageSpecialistJumpsuit
@@ -250,6 +259,7 @@
   minLimit: 0
   loadouts:
   - CorpsmanBeret
+  - BrigMedicalBeret
 
 - type: loadoutGroup
   id: BrigMedicNeck
@@ -257,6 +267,7 @@
   minLimit: 0
   loadouts:
   - ScarfRed
+  - ScarfBlack
   - ScarfBlue
   - SecurityPoncho
 
@@ -273,9 +284,26 @@
   id: BrigMedicOuterClothing
   name: loadout-group-brig-medic-outerclothing
   loadouts:
+  - LongcoatBrigmedic
   - StasecWinterCoatCorpsman
   - PlateCarrier
   - DuraVest
+  - ArmorVestSlim
+
+- type: loadoutGroup
+  id: CorpsmanEyewear
+  name: loadout-group-corpsman-eyewear
+  minLimit: 1
+  maxLimit: 1
+  loadouts:
+  - CorpsmanGlasses
+  - PrescriptionCorpsmanGlasses
+  - MedicalHud
+  - MedicalEyePatchHud
+  - PrescriptionMedHud
+  - Glasses
+  - GlassesJamjar
+  - GlassesJensen
 
 - type: loadoutGroup
   id: BrigMedicBack
@@ -323,6 +351,7 @@
   - SecurityFirearmWeaponPistolSLP57
   - SecurityFirearmWeaponPistolMk58
   - SecurityFirearmWeaponDisabler
+  - SecurityFirearmTruncheon
 
 - type: loadoutGroup
   id: SecurityRevolverFirearm
@@ -333,6 +362,7 @@
   - SecurityRevolverInspector
   - SecurityFirearmWeaponRevolverFitz
   - SecurityRevolverWeaponRevolverLucky
+  - SecurityFirearmTruncheon
 
 - type: loadoutGroup
   id: SecurityFirearmAmmo
@@ -369,6 +399,7 @@
   - SecurityRevolverWeaponRevolverLucky
   - SecurityFirearmWeaponRevolverDeckard
   - SecurityFirearmWeaponRevolverK38Master
+  - SecurityFirearmTruncheon
 
 - type: loadoutGroup
   id: SecurityAllAmmo
@@ -383,6 +414,31 @@
   - SecurityFirearmSpeedLoaderSpecialRubber
   - SecurityFirearmSpeedLoaderSpecial
 
+## Security Gloves
+- type: loadoutGroup
+  id: SecurityGloves
+  name: loadout-group-security-gloves
+  minLimit: 0
+  loadouts:
+  - SecurityClothingHandsGlovesColorBlack
+  - SecurityClothingHandsGlovesFingerless
+
+## Security Glasses
+- type: loadoutGroup
+  id: SecurityEyewear
+  name: loadout-group-security-eyewear
+  minLimit: 1
+  maxLimit: 1
+  loadouts:
+  - SecurityGlasses
+  - PrescriptionSecurityGlasses
+  - SecurityHud
+  - SecurityEyePatchHud
+  - PrescriptionSecurityHud
+  - Glasses
+  - GlassesJamjar
+  - GlassesJensen
+
 ## Security Officer
 - type: loadoutGroup
   id: SecurityNeck
@@ -390,6 +446,7 @@
   minLimit: 0
   loadouts:
   - ScarfRed
+  - ScarfBlack
   - SecurityPoncho
 
 - type: loadoutGroup
@@ -399,7 +456,9 @@
   - PlateCarrier
   - DuraVest
   - StasecSweater
+  - LongcoatSecurity
   - StasecWinterCoat
+  - ArmorVestSlim
 
 ## Warden
 - type: loadoutGroup
@@ -408,7 +467,9 @@
   loadouts:
   - PlateCarrier
   - DuraVest
+  - WardenLongcoat
   - StasecWinterCoatWarden
+  - ArmorVestSlim
 
 ## Head of Security
 - type: loadoutGroup
@@ -417,7 +478,10 @@
   loadouts:
   - PlateCarrier
   - DuraVest
+  - HeadofSecurityLongcoat
   - StasecWinterCoatHoS
+  - HeadOfSecurityTrenchcoat
+  - ArmorVestSlim
 
 ## Detective
 - type: loadoutGroup
@@ -437,10 +501,12 @@
   id: DetectiveOuterClothingDeltaV
   name: loadout-group-detective-outerclothing
   loadouts:
+  - LongcoatSecurity
   - StasecWinterCoatDet
   - PlateCarrier
   - DuraVest
   - DetPlatedCoat
+  - ArmorVestSlim
 
 # Medical
 ## Psychologist
@@ -450,6 +516,7 @@
   minLimit: 0
   loadouts:
   - MedicalBeret
+  - BlueMedicalBeret
   - MimeFrenchBeret
   - PsychologistGreyFlatcap
   - PsychologistBrownFlatcap
@@ -488,8 +555,19 @@
   loadouts:
   - Stethoscope
   - ScarfBlue
+  - ScarfLightBlue
 
 ## Chemist
+
+- type: loadoutGroup
+  id: ChemistHead
+  name: loadout-group-chemist-head
+  minLimit: 0
+  loadouts:
+  - MedicalBeret
+  - BlueMedicalBeret
+  - SeniorChemistBeret
+
 - type: loadoutGroup
   id: ChemistNeck
   name: loadout-group-chemist-neck
@@ -498,6 +576,7 @@
   - ChemistTie
   - ScarfOrange
   - ScarfBlue
+  - ScarfLightBlue
 
 - type: loadoutGroup
   id: ChemistGloves
@@ -513,6 +592,8 @@
   name: loadout-group-chemist-shoes
   loadouts:
   - WhiteShoes
+  - LeatherShoes
+  - LaceupShoes
   - ChemistWinterBoots
   - ChemistShoes
 
@@ -520,6 +601,7 @@
 - type: loadoutGroup
   id: SurgeonHead
   name: loadout-group-surgeon-head
+  minLimit: 0
   loadouts:
   - BlueSurgeryCap
   - GreenSurgeryCap
@@ -611,6 +693,7 @@
   minLimit: 0
   loadouts:
   - ScarfOrange
+  - ScarfRed
 
 ## Atmospheric Technician
 - type: loadoutGroup
@@ -620,6 +703,17 @@
   loadouts:
   - ScarfLightBlue
   - ScarfOrange
+
+- type: loadoutGroup
+  id: AtmosphericTechnicianHead
+  name: loadout-group-atmospheric-technician-head
+  minLimit: 0
+  loadouts:
+  - StationEngineerHardhatYellow
+  - StationEngineerHardhatOrange
+  - StationEngineerHardhatRed
+  - AtmosHardHatBlue
+  - AtmosBeret
 
 ## Clerk
 - type: loadoutGroup
@@ -716,6 +810,7 @@
   - RoboticistLabCoat
   - RoboticistWintercoat
   - RegularLabCoat
+  - LongLabCoat
   - ScienceLabCoat
   - CardborgCostume
 
@@ -736,6 +831,18 @@
   - RoboticsWinterBoots
   - WhiteShoes
   - ScienceWinterBoots
+
+- type: loadoutGroup
+  id: RoboticistGlasses
+  name: loadout-group-roboticist-glasses
+  minLimit: 0
+  loadouts:
+  - ClothingEyesHudDiagnostic
+  - ClothingEyesPrescriptionDiagHud
+  - ClothingEyesEyepatchHudDiag
+  - Glasses
+  - GlassesJamjar
+  - GlassesJensen
 
 # Command
 ## Captain
@@ -773,6 +880,14 @@
   - WhiteLeatherShoes
   - LaceupShoes
   - HoPWinterBoots
+
+## chift engenier
+- type: loadoutGroup
+  id: ChiefEngineerGloves
+  name: loadout-group-chief-engineer-gloves
+  minLimit: 0
+  loadouts:
+  - insulatedgloves
 
 # PDAs
 - type: loadoutGroup
@@ -894,3 +1009,50 @@
   hidden: true
   loadouts:
   - EmergencyIPCBox
+
+# ERT
+- type: loadoutGroup
+  id: GroupEVATankERT
+  name: loadout-group-EVA-tank
+  hidden: true
+  loadouts:
+  - LoadoutEmergencyOxygenExtendedERT
+  - LoadoutEmergencyNitrogenExtendedERT
+  - LoadoutEmergencyWaterVaporExtendedERT
+
+- type: roleLoadout
+  id: RoleSurvivalERT
+  groups:
+  - GroupEVATankERT
+  - SurvivalExtended
+
+# Wildcards
+- type: loadoutGroup
+  id: BoxerJumpsuit
+  name: loadout-group-boxer-jumpsuit
+  loadouts:
+  - BoxerShorts
+  - BoxerShortsWithTop
+
+- type: loadoutGroup
+  id: BoxerGloves
+  name: loadout-group-boxer-gloves
+  loadouts:
+  - RedBoxingGloves
+  - BlueBoxingGloves
+  - GreenBoxingGloves
+  - YellowBoxingGloves
+
+- type: loadoutGroup
+  id: BoxerJobTrinkets
+  name: loadout-group-jobtrinkets
+  minLimit: 0
+  loadouts:
+  - LizardPlushieBoxer
+
+- type: loadoutGroup
+  id: ZookeeperJobTrinkets
+  name: loadout-group-jobtrinkets
+  minLimit: 0
+  loadouts:
+  - LizardPlushieZookeeper

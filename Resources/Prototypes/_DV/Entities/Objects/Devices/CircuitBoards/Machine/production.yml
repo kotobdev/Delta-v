@@ -6,7 +6,7 @@
   - type: MachineBoard
     prototype: AdvancedMicrowave
     stackRequirements:
-      Capacitor: 2
+      Manipulator: 2
       Glass: 4
       Cable: 5
 
@@ -18,7 +18,7 @@
   - type: MachineBoard
     prototype: SyndicateExosuitFabricator
     stackRequirements:
-      Capacitor: 2
+      Manipulator: 2
       Glass: 4
       Cable: 5
 
@@ -29,8 +29,7 @@
   components:
   - type: MachineBoard
     stackRequirements:
-      MatterBin: 2
-      Manipulator: 2
+      Manipulator: 4
     tagRequirements:
       GlassBeaker:
         amount: 2
@@ -87,3 +86,18 @@
     prototype: EpistemicsTechFab
   - type: StealTarget
     stealGroup: EpistemicsTechFabCircuitboard
+
+# Kitchen Freezer
+- type: entity
+  id: KitchenFreezerMachineCircuitBoard
+  parent: BaseMachineCircuitboard
+  name: kitchen freezer thermomachine machine board
+  description: Used to make a kitchen freezer thermomachine.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasThermoMachineKitchenFreezer
+    stackRequirements:
+      Manipulator: 4
+      Cable: 5

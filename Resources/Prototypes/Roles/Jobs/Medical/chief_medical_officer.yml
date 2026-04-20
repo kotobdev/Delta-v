@@ -9,19 +9,19 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobChemist
-      time: 9000 #2.5 hrs
+      time: 2.5h
     - !type:RoleTimeRequirement
       role: JobMedicalDoctor
-      time: 18000 #5 hrs
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 #10 hrs
+      time: 10h
+  weight: 10
   startingGear: CMOGear
   icon: "JobIconChiefMedicalOfficer"
   requireAdminNotify: true # DeltaV
   supervisors: job-supervisors-captain
   canBeAntag: false
-  whitelisted: true # DeltaV
   access:
   - Medical
   - Command
@@ -42,13 +42,8 @@
   - !type:AddComponentSpecial
     components:
       - type: CommandStaff
-      - type: PsionicBonusChance # DeltaV - makes it more likely to become psionic.
-        flatBonus: 0.025
-  # Shitmed Change
-  - !type:AddComponentSpecial
-    components:
-    - type: SurgerySpeedModifier
-      speedModifier: 1.5 # DeltaV
+  - !type:ModifyPsionicChanceSpecial # DeltaV - Command Roles are more likely to be psionic.
+    jobBonusChance: 0.05 # Additional 5% chance.
 
 - type: startingGear
   id: CMOGear
@@ -59,3 +54,15 @@
   storage:
     back:
     - Flash
+
+- type: chameleonOutfit
+  id: ChiefMedicalOfficerChameleonOutfit
+  job: ChiefMedicalOfficer
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretCmo
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingCloakCmo
+    outerClothing: ClothingOuterCoatLabCmo
+    gloves: ClothingHandsGlovesNitrile

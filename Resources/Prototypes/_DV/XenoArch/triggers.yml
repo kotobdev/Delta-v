@@ -1,0 +1,7 @@
+- type: xenoArchTrigger
+  id: TriggerPsionicUsage
+  tip: xenoarch-trigger-tip-psionic
+  components:
+  - type: XATPsionicUsage
+
+# TODO: when golemization is ported, add a trigger for golemizing someone, target 7 or something

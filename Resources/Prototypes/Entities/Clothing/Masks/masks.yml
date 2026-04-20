@@ -23,8 +23,8 @@
 - type: entity
   parent: [ClothingMaskGas, BaseSecurityContraband]
   id: ClothingMaskGasSecurity
-  name: security gas mask
-  description: A standard issue Security gas mask.
+  name: security breath mask # Delta-V - Changed the name and description for the basegame Security gas mask, seeing as this really doesn't look like an actual gas mask.
+  description: A standard issue armored breath mask for NanoTrasen Security. # Delta-V
   components:
   - type: Item
     size: Tiny
@@ -209,15 +209,27 @@
     - IPCMaskWearable # EE - IPCs
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
-    - HeadTop
-    - HeadSide
 
 - type: entity
-  parent: ClothingMaskClownBase
+  parent: [ClothingMaskClownBase, BaseFoldable]
   id: ClothingMaskClown
+  description: A clown mask featuring a foldable wig; a true prankster's attire.
   components:
+  - type: Appearance
+  - type: Foldable
+    canFoldInsideContainer: true
+  - type: FoldableClothing
+    foldedEquippedPrefix: opened
+    foldedHeldPrefix: opened
+  - type: Sprite
+    sprite: Clothing/Mask/clown.rsi
+    layers:
+    - state: icon
+      map: [ "unfoldedLayer" ]
+    - state: icon-opened
+      map: [ "foldedLayer" ]
+      visible: false
   - type: Tag
     tags:
     - ClownMask
@@ -225,13 +237,10 @@
     - WhitelistChameleon
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
-    - HeadTop
-    - HeadSide
 
 - type: entity
-  parent: ClothingMaskClown
+  parent: ClothingMaskClownBase
   id: ClothingMaskClownBanana
   name: banana clown wig and mask
   components:
@@ -242,9 +251,17 @@
   - type: Construction
     graph: BananaClownMask
     node: mask
+  - type: Tag
+    tags:
+    - ClownMask
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    slots:
+    - Snout
 
 - type: entity
-  parent: [ClothingMaskClown, BaseSecurityContraband]
+  parent: [ClothingMaskClownBase, BaseSecurityContraband]
   id: ClothingMaskClownSecurity
   name: security clown wig and mask
   description: A debatably oxymoronic but protective mask and wig.
@@ -260,6 +277,14 @@
         Slash: 0.95
         Piercing: 0.95
         Heat: 0.95
+  - type: Tag
+    tags:
+    - ClownMask
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    slots:
+    - Snout
 
 - type: entity
   parent: ClothingMaskBase
@@ -319,6 +344,8 @@
   - type: PhysicalComposition
     materialComposition:
       Plastic: 25
+  - type: StaticPrice
+    price: 5
 
 - type: entity
   parent: ClothingMaskBase
@@ -335,6 +362,9 @@
   - type: IngestionBlocker
   - type: AddAccentClothing
     accent: MumbleAccent
+  - type: EmoteBlocker
+    blocksCategories:
+    - Vocal
   - type: Construction
     graph: Muzzle
     node: muzzle
@@ -674,6 +704,24 @@
     sprite: Clothing/Mask/scaredmime.rsi
   - type: Clothing
     sprite: Clothing/Mask/scaredmime.rsi
+
+- type: entity
+  parent: [ClothingMaskMime, BaseSecurityContraband]
+  id: ClothingMaskMimeSecurity
+  name: security mime mask
+  description: You have the right to remain silent.
+  components:
+  - type: Sprite
+    sprite: Clothing/Mask/mime_security.rsi
+  - type: Clothing
+    sprite: Clothing/Mask/mime_security.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
 
 - type: entity
   parent: ClothingMaskBase

@@ -7,6 +7,7 @@
   - LightReplacer
   - Skimmer
   - RadioHandheld
+  - BarberScissors
 
 - type: latheRecipePack
   id: ServiceBoardsStaticDeltaV
@@ -20,6 +21,7 @@
   recipes:
   - PlantBagOfHolding
   - PlantAnalyzer # Port of Frontier Plant Analyzer
+  - TrashBagOfHolding
 
 - type: latheRecipePack
   id: ServiceBoardsDeltaV

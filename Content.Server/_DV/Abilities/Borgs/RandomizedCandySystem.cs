@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.Nutrition.Components;
 using Content.Shared._DV.Abilities.Borgs;
 using Content.Shared.Nutrition;
+using Content.Shared.Nutrition.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
@@ -54,6 +55,7 @@ public sealed partial class RandomizedCandySystem : EntitySystem
             _metaData.SetEntityName(uid, $"{candyFlavor.Name} {meta.EntityName}", meta);
         _metaData.SetEntityDescription(uid, $"{meta.EntityDescription} {GetExamineFluff(candyFlavor.Flavors)}");
         Dirty(uid, meta);
+        Dirty(uid, flavorProfile);
     }
 
     // this technically duplicates code from FlavorProfileSystem but what we would need to call

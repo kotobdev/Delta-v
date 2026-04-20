@@ -6,13 +6,13 @@
   antagAdvantage: 2 # DeltaV - Reduced TC: Security Radio and Access
   requirements:
     - !type:OverallPlaytimeRequirement
-      time: 36000 # 10 hrs
+      time: 10h
     - !type:RoleTimeRequirement
       role: JobLawyer
-      time: 36000 # 10 hours
+      time: 10h
     - !type:RoleTimeRequirement
       role: JobProsecutor
-      time: 36000 # 10 hours
+      time: 10h
   startingGear: ClerkGear
   icon: "JobIconClerk"
   requireAdminNotify: true
@@ -40,3 +40,14 @@
   storage:
     back:
     - BookSpaceLaw
+
+- type: chameleonOutfit
+  id: ClerkChameleonOutfit
+  job: Clerk
+  hasMindShield: true
+  equipment:
+      id: ClerkPDA
+      ears: ClothingHeadsetJustice
+      jumpsuit: ClothingUniformJumpsuitClerk
+      neck: ClothingNeckTieBlack
+      outerClothing: ClothingOuterClerkVest

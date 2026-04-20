@@ -3,8 +3,8 @@
 - type: latheRecipePack
   id: EngineeringStaticDeltaV
   recipes:
-  - Oilpack
-  - HoloprojectorEngineering
+  - HolotapeProjector
+  - SheetPlasteel1Engineering
 
 ## Dynamic
 
@@ -38,3 +38,4 @@
   - ClothingOuterHardsuitAtmos
   - ClothingOuterSuitAtmosFire
   - ClothingHeadHelmetAtmosFire
+  - ClothingOuterVoidsuitEngineering

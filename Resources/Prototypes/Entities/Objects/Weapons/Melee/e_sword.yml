@@ -34,6 +34,7 @@
   - type: ItemToggleSize
     activatedSize: Huge
   - type: ItemTogglePointLight
+    toggleableVisualsColorModulatesLights: true
   - type: ItemToggleMeleeWeapon
     activatedSoundOnHit:
       path: /Audio/Weapons/eblade1.ogg
@@ -70,7 +71,7 @@
     color: white
     netsync: false
   - type: Appearance
-  - type: ToggleableLightVisuals # Add support for multiple layers
+  - type: ToggleableVisuals # Add support for multiple layers
     spriteLayer: blade
     inhandVisuals:
       left:
@@ -80,6 +81,8 @@
       - state: inhand-right-blade
         shader: unshaded
   - type: Reflect
+    reflects:
+    - energy # Deltav - previously reflected all projectiles
   - type: IgnitionSource
     temperature: 700
 
@@ -100,6 +103,8 @@
       map: [ "blade" ]
   - type: Item
     sprite: Objects/Weapons/Melee/e_sword-inhands.rsi
+  - type: StaticPrice
+    price: 2500
 
 - type: entity
   name: energy dagger
@@ -161,13 +166,13 @@
   - type: PointLight
     enabled: false
     radius: 1.5
-    energy: 1.5
+    energy: 2.7
     color: white
     netsync: false
 
 - type: entity
   name: pen
-  parent: BaseMeleeWeaponEnergy
+  parent: [BaseMeleeWeaponEnergy, SelectableLock]
   id: EnergyDagger
   suffix: E-Dagger
   description: 'A dark ink pen.'
@@ -220,7 +225,7 @@
   - type: PointLight
     enabled: false
     radius: 1.5
-    energy: 1.5
+    energy: 2.7
     color: white
     netsync: false
   - type: MeleeWeapon
@@ -230,6 +235,16 @@
     damage:
       types:
         Blunt: 1
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/pen_click.ogg
+      params:
+        volume: -4
+        maxDistance: 2
+  - type: UseDelay
+    delay: 1.5
+  - type: ItemToggleRequiresLock #  TODO: FIX THIS VERB IS COOKED
+    lockedPopup: null
   - type: Tag
     tags:
     - Write
@@ -290,17 +305,17 @@
   id: EnergySwordDouble
   description: Syndicate Command Interns thought that having one blade on the energy sword was not enough. This can be stored in pockets.
   components:
-  - type: ItemToggle
-    onUse: false # wielding events control it instead
-    onActivate: false # prevents the weapon from being able to be turned on when it is on the ground
-    soundActivate:
-      path: /Audio/Weapons/ebladeon.ogg
-      params:
-        volume: 3
-    soundDeactivate:
-      path: /Audio/Weapons/ebladeoff.ogg
-      params:
-        volume: 3
+  #- type: ItemToggle # DeltaV - commented out
+  #  onUse: false # wielding events control it instead
+  #  onActivate: false # prevents the weapon from being able to be turned on when it is on the ground
+  #  soundActivate:
+  #    path: /Audio/Weapons/ebladeon.ogg
+  #    params:
+  #      volume: 3
+  #  soundDeactivate:
+  #    path: /Audio/Weapons/ebladeoff.ogg
+  #    params:
+  #      volume: 3
   - type: ItemToggleMeleeWeapon
     activatedSoundOnSwing:
       path: /Audio/Weapons/eblademiss.ogg
@@ -308,10 +323,10 @@
         volume: 3
         variation: 0.250
     activatedDamage:
-        types:
-            Slash: 12
-            Heat: 12
-            Structural: 15
+        types: # DeltaV - was 12 slash, 12 heat, 15 structural
+            Slash: 9
+            Heat: 9
+            Structural: 8
   - type: ItemToggleActiveSound
     activeSound:
       path: /Audio/Weapons/ebladehum.ogg
@@ -324,11 +339,11 @@
       malus: 0.7
     - type: Execution
       doAfterDuration: 4.0
-  - type: Wieldable
-    wieldSound: null # esword light sound instead
+  #- type: Wieldable # DeltaV - commented out
+  #  wieldSound: null # esword light sound instead
   - type: MeleeWeapon
     wideAnimationRotation: -135
-    attackRate: 1.5
+    attackRate: 2.0 # DeltaV - was 1.5
     angle: 100
     damage:
       types:
@@ -344,12 +359,10 @@
         map: [ "blade" ]
   - type: Item
     size: Small
-    sprite: Objects/Weapons/Melee/e_sword_double-inhands.rsi
+    sprite: _DV/Objects/Weapons/Melee/e_sword_double-inhands.rsi # DeltaV - fancier inhands sprite
   - type: Reflect
-    reflectProb: .75
+    reflectProb: .10 # DeltaV: Having two blades isn't really practical for reflecting shots.
     spread: 75
-    reflects:
-    - Energy # DeltaV: 80% Energy Reflection but no ballistics.
   - type: UseDelay
     delay: 1
 
@@ -357,7 +370,7 @@
 - type: entity
   parent: EnergySwordDouble
   id: HyperEutacticBlade
-  name: hypereutactic-blade
+  name: hypereutactic blade #DeltaV remove hyphen
   description: A supermassive weapon envisioned to cleave the very fabric of space and time itself in twain, the hypereutactic blade dynamically flash-forges a hypereutactic crystaline nanostructure capable of passing through most known forms of matter like a hot knife through butter.
   components:
   - type: MeleeWeapon
@@ -387,6 +400,7 @@
     delay: 1.5
   - type: Sprite
     sprite: Objects/Weapons/Melee/hypereutactic_blade.rsi
+    offset: 0, 0.5 #DeltaV fix offset when placing item so hilt is centered
     layers:
     - state: hypereutactic
     - state: hypereutactic_blade
@@ -402,15 +416,33 @@
   - type: Item
     size: Small
     sprite: Objects/Weapons/Melee/hypereutactic_blade_inhands.rsi
+    # DeltaV changes
+  - type: ItemToggle 
+    onUse: false # wielding events control it instead
+    onActivate: false # cannot activate on floor
+  - type: ItemToggleSize
+    activatedSize: Ginormous #cannot be put in bags while active
+  - type: Wieldable # requires wield to swing
+    unwieldOnUse: true
   - type: Reflect
-    reflectProb: 1.0
-    spread: 75
-
+    reflectProb: 0.75 # from 100% to 75% reflect
+    spread: 10 # tightened spread from 75 to 10
+    reflects:
+    - Energy
+    - NonEnergy
+    # DeltaV changes end
 # Borgs
+
 - type: entity
-  suffix: One-Handed, For Borgs
+  parent: EnergySword
+  id: CyborgEnergySword
+  suffix: For Borgs
+  description: A very loud & dangerous sword with a beam made of pure, concentrated plasma. Specially designed for syndicate cyborgs.
+
+- type: entity
   parent: EnergySwordDouble
   id: CyborgEnergySwordDouble # why is this invalid if ID is BorgEnergySwordDouble
+  suffix: One-Handed, For Borgs
   description: Syndicate Command Interns thought that having one blade on the energy sword was not enough. Specially designed for syndicate cyborgs.
   components: # could add energy-draining like the L6C
   - type: Wieldable

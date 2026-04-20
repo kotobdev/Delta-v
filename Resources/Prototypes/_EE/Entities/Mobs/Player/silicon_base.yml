@@ -15,7 +15,7 @@
         - reagents: [Water, SpaceCleaner]
           methods: [Touch]
           effects:
-            - !type:WashCreamPieReaction
+            - !type:WashCreamPie
     - type: DamageOnHighSpeedImpact
       damage:
         types:
@@ -32,6 +32,7 @@
     - type: ZombieImmune
     - type: DoAfter
     - type: RotationVisuals
+      defaultRotation: 90 # DeltaV
       horizontalRotation: 90
     - type: Examiner
     # - type: Recyclable
@@ -63,17 +64,18 @@
         1: 0.45
         0: 0.00
     - type: Temperature
-      heatDamageThreshold: 1800 # GoobStation: Roughly the melting point of mild steels
-      coldDamageThreshold: 100 # DeltaV - has to be very cold
       currentTemperature: 310.15
       specificHeat: 42
+      atmosTemperatureTransferEfficiency: 0.05
+    - type: TemperatureDamage # DeltaV - Update for TemperatureDamage
+      heatDamageThreshold: 1800 # GoobStation: Roughly the melting point of mild steels
+      coldDamageThreshold: 100 # DeltaV - has to be very cold
       coldDamage:
         types:
           Cold: 0.1 #per second, scales with temperature & other constants
       heatDamage:
         types:
           Heat: 2 # DeltaV - was 3
-      atmosTemperatureTransferEfficiency: 0.05
     - type: KillOnOverheat # GoobStation
     - type: Deathgasp
       prototype: SiliconDeathgasp
@@ -153,32 +155,36 @@
     - type: CanEnterCryostorage # Goobstation
     - type: StatusIcon # Goobstation
       bounds: -0.5,-0.5,0.5,0.5
-    - type: Bloodstream # begin DeltaV - uncommented
-      damageBleedModifiers: BloodlossIPC
-      bloodReagent: Oil
-      bleedReductionAmount: 0
-      bloodMaxVolume: 100
-      chemicalMaxVolume: 0
-      bleedPuddleThreshold: 3
-      bloodRefreshAmount: 0
-      bloodlossThreshold: 0.8
-      maxBleedAmount: 2 # not a lot, but its hard to stop
-      bloodlossDamage:
-        types:
-          Blunt: 0.1 # lubricant is running low
-      bloodlossHealDamage:
-        types:
-          Burn: 0 # end DeltaV
+    #- type: Bloodstream
+    #  damageBleedModifiers: BloodlossIPC
+    #  bloodReagents:
+    #    reagents:
+    #    - ReagentId: Oil
+    #      Quantity: 1
+    #  bleedReductionAmount: 0
+    #  bloodMaxVolume: 100
+    #  chemicalMaxVolume: 0
+    #  bleedPuddleThreshold: 3
+    #  bloodRefreshAmount: 0
+    #  bloodlossThreshold: 0.8
+    #  maxBleedAmount: 2 # not a lot, but its hard to stop
+    #  bloodlossDamage:
+    #    types:
+    #      Blunt: 0.1 # lubricant is running low
+    #  bloodlossHealDamage:
+    #    types:
+    #      Burn: 0
     - type: Flammable
       fireSpread: true
       canResistFire: true
       damage:
         types:
           Heat: 0 # GoobStation: Replaced fire damage with overheating shutdown
-    # - type: Barotrauma # Not particularly modifiable. In the future, some response to pressure changes would be nice.
-    #   damage:
-    #     types:
-    #       Blunt: 0.28 #per second, scales with pressure and other constants.
+    - type: Barotrauma # DeltaV - uncommented
+      damage:
+        types:
+          Blunt: 0.5 # DeltaV - was 0.28
+          Heat: 0.25 # DeltaV
     - type: Identity
     #  soundHit:
     #    path: /Audio/Effects/metalbreak.ogg
@@ -194,7 +200,8 @@
         - CanPilot
         - FootstepSound
         - DoorBumpOpener
-        - SiliconEmotes # DeltaV
+        - SiliconOrIPCEmotes # DeltaV
+        - Honker # DeltaV - Honk seperate from Silicon emotes
     - type: Hands
     - type: Inventory
       templateId: human
@@ -229,7 +236,7 @@
     - type: Climbing
     - type: StandingState
     - type: MindContainer
-      showExamineInfo: true
+    - type: MindExaminable # DeltaV - Update for predicted mind examine
     - type: SSDIndicator
     - type: CanEscapeInventory
     - type: HumanoidAppearance
@@ -311,11 +318,25 @@
       priority: 1
       lightningExplode: false
     - type: ComplexInteraction
-    - type: FootPrints
     - type: Carriable
     - type: Targeting
     - type: SurgeryTarget
-    - type: LayingDown
+    - type: ParcelWrapOverride
+      parcelPrototype: WrappedParcelHumanoid
+      wrapDelay: 5
     - type: Fiber # DeltaV - IPCs leave fibers instead of prints
       fiberMaterial: fibers-steel
     - type: Anesthesia # DeltaV - IPCs can be operated on without anesthesia
+    - type: PassiveDamage # DeltaV - electric damage disappears over time
+      allowedStates:
+      - Alive
+      - Critical
+      - Dead
+      damage:
+        groups:
+          Electronic: -0.5
+    - type: SiliconEmp # DeltaV - EMP damage
+    - type: CosmicCenserTarget # DeltaV - Cosmic Cult
+    - type: GrappleTarget # DeltaV - Allow targets to be grappled
+    - type: CanDoCPR # DeltaV - Addition of CPR
+    - type: RMCSetPose # DeltaV - RMC pose port

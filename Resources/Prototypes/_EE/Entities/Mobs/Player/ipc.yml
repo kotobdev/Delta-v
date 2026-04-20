@@ -37,6 +37,7 @@
     factions:
       - NanoTrasen
   - type: StandingState
+  - type: Crawler
   - type: MobState
     allowedStates:
       - Alive
@@ -61,6 +62,7 @@
           damage: 400
         behaviors:
           - !type:GibBehavior { }
+  - type: Polymorphable # DeltaV
   - type: SlowOnDamage
     speedModifierThresholds:
       60: 0.7
@@ -106,7 +108,13 @@
 #     layoutId: IPC
   - type: EmitBuzzWhileDamaged
   - type: CanHostGuardian
-  - type: WeldingHealable
+  - type: Repairable # DeltaV - Replace welding healable with upstream version
+    damageValue: -10 # 10 seconds to repair from crit
+    doAfterDelay: 1
+    fuelCost: 0.5
+    allowSelfRepair: true # DeltaV - was false
+  - type: Fiber # DeltaV - IPCs leave fibers instead of prints
+    fiberMaterial: fibers-steel
   - type: CombatMode # DeltaV - let IPCs disarm
     canDisarm: true
   - type: SnoutHelmet # DeltaV - IPC Snouts

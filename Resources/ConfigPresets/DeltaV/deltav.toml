@@ -1,7 +1,7 @@
 [game]
 desc               = "A medium roleplay fork based around the mysterious Noösphere, featuring unique content, custom maps, new species and a revamped science department."
 lobbyenabled       = true
-lobbyduration      = 240
+lobbyduration      = 420
 round_end_pacifist = true
 round_restart_time = 300
 contraband_examine = false # Doubtful that it's desired at all, and would require going over every item in accordance with SOP
@@ -26,9 +26,8 @@ discord    = "https://discord.gg/deltav"
 github     = "https://github.com/DeltaV-Station/Delta-v"
 website    = "https://www.deltav.gay/"
 wiki       = "https://wiki.deltav.gay/view/Main_Page"
-patreon    = "https://www.patreon.com/c/DeltaVSS14"
+patreon    = "https://www.patreon.com/c/deltav_gay/membership"
 bug_report = "https://github.com/DeltaV-Station/Delta-v/issues/new/choose"
-#forum      = "https://forum.deltav.gay/"
 appeal     = "https://discord.gg/deltav"
 
 [net]
@@ -83,12 +82,14 @@ voter_ghost_requirement = false
 space_wind = true
 
 [shuttle]
-arrivals = false
+arrivals = true
+arrivals_planet = false
+arrivals_map = "/Maps/_DV/transit_hub.yml"
+arrivals_cooldown = 90 # Need to be longer than cooldown
 cooldown = 60 # 50 longer than the default
-startup_time = 10 # 4.5 seconds longer than the default
-travel_time = 5 # 15 seconds less than the default
-emergency_dock_time = 360 # an extra 2 minutes over the default
-emergency_transit_time_min = 90
+travel_time = 9.5 # 10.5 seconds less than the default
+emergency_dock_time = 240
+emergency_transit_time_min = 30
 auto_call_time = 120 # rounds are longer
 auto_call_extension_time = 30 # next auto call at 2h30
 emergency_early_launch_allowed = true # MRP server command ban time
@@ -97,8 +98,11 @@ recall_turning_point = 0.33
 [biomass]
 easy_mode = false # reclaimer can work on soul-ful bodies, mrp server
 
-[surgery]
-can_operate_on_self = false # mrp...
-
 [control]
-storage_limit = 2
+storage_limit = 3
+
+[nf14.respawn]
+time = 600
+
+[chat]
+max_announcement_length = 512

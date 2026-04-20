@@ -3,10 +3,10 @@
   id: ERTLeaderGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
-    back: ClothingBackpackERTLeader
+    back: ClothingBackpackERTLeaderReducedVisual
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHelmetERTLeader
-    eyes: ClothingEyesGlassesCommand
+    eyes: ClothingEyesERTInformationHud
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBasicSlim
     id: ERTLeaderPDA
@@ -25,7 +25,7 @@
   parent: ERTLeaderGearAmber
   id: ERTLeaderGearRed
   equipment:
-    shoes: ClothingShoesBootsMag
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
     outerClothing: ClothingOuterHardsuitERTLeaderBase
     belt: ClothingBeltSecurityFilled
@@ -46,7 +46,6 @@
   parent: ERTLeaderGearRed
   id: ERTLeaderGearGamma
   equipment:
-    shoes: ClothingShoesBootsMagAdv
     outerClothing: ClothingOuterHardsuitERTLeaderElite
     pocket2: WeaponPistolUniversal
   inhand:
@@ -69,9 +68,9 @@
   id: ERTChaplainGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTChaplain
-    back: ClothingBackpackERTChaplain
+    back: ClothingBackpackERTChaplainReducedVisual
     shoes: ClothingShoesLeather
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesERTInformationHud
     neck: ClothingNeckStoleChaplain
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestPlateCarrierAdv
@@ -95,7 +94,7 @@
   parent: ERTChaplainGearAmber
   id: ERTChaplainGearRed
   equipment:
-    shoes: ClothingShoesBootsMag
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
     outerClothing: ClothingOuterHardsuitERTChaplainBase
   inhand:
@@ -105,11 +104,12 @@
   parent: ERTChaplainGearAmber # Doesn't inherit from Red due to energy gun.
   id: ERTChaplainGearGamma
   equipment:
-    shoes: ClothingShoesBootsMagAdv
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
     outerClothing: ClothingOuterHardsuitERTChaplainElite
   inhand:
   - WeaponEnergyGunAdvanced
+  - RadiantSword
 
 # Engineer
 
@@ -117,9 +117,10 @@
   id: ERTEngineerGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
-    back: ClothingBackpackERTEngineer
+    back: ClothingBackpackERTEngineerReducedVisual
     shoes: ClothingShoesBootsMag
-    eyes: ClothingEyesGlassesMeson
+    head: ClothingHeadHelmetERTEngineer
+    eyes: ClothingEyesERTInformationHud
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTEngineerBase
     id: ERTEngineerPDA
@@ -141,8 +142,11 @@
   parent: ERTEngineerGearAmber
   id: ERTEngineerGearRed
   equipment:
-    shoes: ClothingShoesBootsMagAdv
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
+    pocket1: WeaponEnergyGunPistol
+  inhand:
+  - JetpackVoid
   storage:
     back:
     - CableMVStack
@@ -151,14 +155,12 @@
     - Flare # Without this flare the survival box gets dropped onto the ground. I love startingGear.
     - SheetPlasteel
     - SheetSteel
-    - WeaponBeamCannon
 
 - type: startingGear
   parent: ERTEngineerGearRed
   id: ERTEngineerGearGamma
   equipment:
     outerClothing: ClothingOuterHardsuitERTEngineerElite
-    pocket1: WeaponEnergyGunPistol
   storage:
     back:
     - CableMVStack
@@ -166,6 +168,7 @@
     - CableApcStack
     - SheetPlasteel
     - SheetSteel
+    - WeaponBeamCannon
     belt:
     - RCDCombat
 
@@ -175,10 +178,10 @@
   id: ERTSecurityGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
-    back: ClothingBackpackERTSecurity
+    back: ClothingBackpackERTSecurityReducedVisual
     shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHelmetERTSecurity
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesERTInformationHud
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestPlateCarrierAdv
     id: ERTSecurityPDA
@@ -199,7 +202,7 @@
   parent: ERTSecurityGearAmber
   id: ERTSecurityGearRed
   equipment:
-    shoes: ClothingShoesBootsSecurityMagboots
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
     outerClothing: ClothingOuterHardsuitERTSecurityBase
     pocket1: WeaponEnergyGunPistol
@@ -215,7 +218,6 @@
   parent: ERTSecurityGearRed
   id: ERTSecurityGearGamma
   equipment:
-    shoes: ClothingShoesBootsMagAdv
     outerClothing: ClothingOuterHardsuitERTSecurityElite
     pocket1: CrowbarRed
   inhand:
@@ -232,10 +234,10 @@
   id: ERTMedicalGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTMedic
-    back: ClothingBackpackERTMedical
+    back: ClothingBackpackERTMedicalReducedVisual
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHelmetERTMedic
-    eyes: ClothingEyesHudMedical
+    eyes: ClothingEyesERTInformationHud
     gloves: ClothingHandsGlovesNitrile
     outerClothing: ClothingOuterVestPlateCarrierAdv
     id: ERTMedicPDA
@@ -257,9 +259,8 @@
   parent: ERTMedicalGearAmber
   id: ERTMedicalGearRed
   equipment:
-    shoes: ClothingShoesBootsMag
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
-    eyes: ClothingEyesGlassesCorpsman
     outerClothing: ClothingOuterHardsuitERTMedicalBase
   inhand:
   - WeaponEnergyGun
@@ -269,7 +270,7 @@
     - BoxBottleMedicineBasic
     - CrowbarRed
     - ChemistryBottleEpinephrine
-    - RollerBedHoloSpawnFolded
+    - HoverBedHoloSpawnFolded
     belt:
     - DefibrillatorCompact
     - ChemistryBottleEpinephrine
@@ -278,7 +279,6 @@
   parent: ERTMedicalGearRed
   id: ERTMedicalGearGamma
   equipment:
-    shoes: ClothingShoesBootsMagAdv
     outerClothing: ClothingOuterHardsuitERTMedicalElite
   inhand:
   - WeaponEnergyGunPistol
@@ -290,7 +290,7 @@
     - CrowbarRed
     - ChemistryBottleEpinephrine
     - ChemistryBottleEpinephrine
-    - RollerBedHoloSpawnFolded
+    - HoverBedHoloSpawnFolded
     - FireExtinguisherMini
 
 # Janitor
@@ -299,10 +299,10 @@
   id: ERTJanitorGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTJanitor
-    back: ClothingBackpackERTJanitor
+    back: ClothingBackpackERTJanitorReducedVisual
     shoes: ClothingShoesGaloshes
     head: ClothingHeadHelmetERTJanitor
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesERTInformationHud
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestPlateCarrierAdv
     id: ERTJanitorPDA
@@ -310,34 +310,36 @@
     belt: ClothingBeltJanitorFilled
     pocket1: WeaponDisabler
     pocket2: FlashlightSeclite
+  inhand:
+  - AdvMopItem
   storage:
     back:
     - CrowbarRed
     - BoxCleanerGrenades
-    - AdvMopItem
-    belt:
     - TrashBag
 
 - type: startingGear
   parent: ERTJanitorGearAmber
   id: ERTJanitorGearRed
   equipment:
-    shoes: ClothingShoesBootsMag
+    shoes: ClothingShoesBootsERTMagboots
     mask: ClothingMaskGasERT
     outerClothing: ClothingOuterHardsuitERTJanitorBase
     pocket1: WeaponEnergyGunMini
+    pocket2: FlashlightSeclite
+  inhand:
+  - AdvMopItem
+  - TrashBagOfHolding
+  storage:
+    back:
+    - WeaponLauncherHydra
+    - CleanadeGrenadeBox
+    - CrowbarRed
+    - TrashBagOfHolding
 
 - type: startingGear
   parent: ERTJanitorGearRed
   id: ERTJanitorGearGamma
   equipment:
-    shoes: ClothingShoesBootsMagAdv
     outerClothing: ClothingOuterHardsuitERTJanitorElite
-  inhand:
-  - AdvMopItem
-  - BagOfSummoningGarbage
-  storage:
-    back:
-    - CrowbarRed
-    - BoxCleanerGrenades
-    - WeaponEnergyGun
+    pocket1: WeaponEnergyGunPistol

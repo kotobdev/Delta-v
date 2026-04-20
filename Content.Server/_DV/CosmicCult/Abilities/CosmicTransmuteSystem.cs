@@ -17,11 +17,11 @@ public sealed class CosmicTransmuteSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<CosmicGlyphTransmuteComponent, TryActivateGlyphEvent>(OnTransmuteGlyph);
+        SubscribeLocalEvent<CosmicGlyphTransmuteComponent, CheckGlyphConditionsEvent>(OnCheckGlyphConditions);
     }
 
-    private void OnTransmuteGlyph(Entity<CosmicGlyphTransmuteComponent> uid, ref TryActivateGlyphEvent args)
+    private void OnCheckGlyphConditions(Entity<CosmicGlyphTransmuteComponent> uid, ref CheckGlyphConditionsEvent args)
     {
-        var tgtpos = Transform(uid).Coordinates;
         var possibleTargets = GatherEntities(uid);
         if (possibleTargets.Count == 0)
         {
@@ -29,8 +29,23 @@ public sealed class CosmicTransmuteSystem : EntitySystem
             args.Cancel();
             return;
         }
+    }
+
+    private void OnTransmuteGlyph(Entity<CosmicGlyphTransmuteComponent> uid, ref TryActivateGlyphEvent args)
+    {
+        var ev = new CheckGlyphConditionsEvent(args.User, args.Cultists);
+        RaiseLocalEvent(uid, ref ev);
+        if (ev.Cancelled)
+        {
+            args.Cancel();
+            return;
+        }
+
+        var tgtpos = Transform(uid).Coordinates;
+        var possibleTargets = GatherEntities(uid);
         var target = _random.Pick(possibleTargets);
-        if (!TryComp<CosmicTransmutableComponent>(target, out var comp)) return;
+        if (!TryComp<CosmicTransmutableComponent>(target, out var comp))
+            return;
         Spawn(comp.TransmutesTo, tgtpos);
         QueueDel(target);
     }
@@ -43,7 +58,7 @@ public sealed class CosmicTransmuteSystem : EntitySystem
     {
         _entities.Clear();
         _lookup.GetEntitiesInRange(Transform(ent).Coordinates, ent.Comp.TransmuteRange, _entities);
-        _entities.RemoveWhere(item => !TryComp<CosmicTransmutableComponent>(item, out var comp) || comp.RequiredGlyphType != MetaData(ent).EntityPrototype!.ID);
+        _entities.RemoveWhere(item => !TryComp<CosmicTransmutableComponent>(item, out var comp) || comp.RequiredGlyphType != MetaData(ent).EntityPrototype!.ID || HasComp<CosmicEquipmentComponent>(item));
         return _entities;
     }
 }

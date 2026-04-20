@@ -14,6 +14,7 @@
 
   defaultModules:
   - BorgModuleTool
+  - BorgModuleInflatable
   - BorgModuleArtifact
   - BorgModuleAnomaly
   radioChannels:
@@ -96,6 +97,7 @@
   - BorgModuleTraversal
   - BorgModuleAppraisal
 
+  lawset: Salvage #DeltaV - Custom Lawset
   job: SalvageSpecialist # DeltaV - borg job requirements
   addComponents: # DeltaV - fibers, departmental access
   - type: Fiber
@@ -136,7 +138,6 @@
     - BorgModuleJanitor
 
   defaultModules:
-  - BorgModuleTool
   - BorgModuleCleaning
   - BorgModuleCustodial
 
@@ -181,7 +182,6 @@
     - BorgModuleMedical
 
   defaultModules:
-  - BorgModuleTool
   - BorgModuleChemical
   - BorgModuleTopicals
   - BorgModuleRescue
@@ -247,7 +247,6 @@
     - BorgModuleService
 
   defaultModules:
-  - BorgModuleTool
   - BorgModuleMusique
   - BorgModuleService
   - BorgModuleClowning

@@ -20,6 +20,7 @@
     GarlicSeeds: 3
     GrapeSeeds: 5
     LemonSeeds: 5
+    LilySeeds: 3 # Delta-V: Makes Trumpets Easier to get over Deus!
     LimeSeeds: 5
     PineappleSeeds: 5
     LingzhiSeeds: 3
@@ -43,5 +44,4 @@
   contrabandInventory:
     TobaccoSeeds: 2
     FoodSnackSemki: 2
-  emaggedInventory:
     FlyAmanitaSeeds: 1

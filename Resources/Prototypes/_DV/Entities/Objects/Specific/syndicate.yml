@@ -39,4 +39,8 @@
   components:
     - type: Store
       balance:
-        Telecrystal: 67 # not 65 but this is for nukies.
+        Telecrystal: 75 # not 65 but this is for nukies.
+    - type: Tag
+      tags:
+      - NukeOpsUplink
+      - LoneOpUplink #DeltavV - lone op tag

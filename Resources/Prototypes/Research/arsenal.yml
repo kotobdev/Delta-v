@@ -104,6 +104,8 @@
   - FlashPayload
   - ExplosivePayload
   - ChemicalPayload
+  - CableDetStack1
+  - EmptyDetonator
   - SignallerDeadMans # DeltaV - Dead Man's Signaller
 
 - type: technology
@@ -159,7 +161,7 @@
   recipeUnlocks:
   - PKAUpgradeDamage
   - PKAUpgradeRange
-  - PKAUpgradeFireRate
+  #- PKAUpgradeFireRate # DeltaV - removal of fire rate upgrade for better feel
 
 - type: technology
   id: BasicShuttleArmament
@@ -183,6 +185,19 @@
   technologyPrerequisites: # DeltaV: added prerequesite
   - ExplosiveTechnology
 
+# DeltaV - HARMPACKS deemed harmful
+# - type: technology
+#   id: DualWieldingTechnology
+#   name: research-technology-dual-wielding-technology
+#   icon:
+#     sprite: Clothing/Back/Specific/harmpack.rsi
+#     state: icon
+#   discipline: Arsenal
+#   tier: 2
+#   cost: 10000
+#   recipeUnlocks:
+#   - ClothingBackpackHarmpack
+
 # Tier 3
 
 - type: technology
@@ -197,7 +212,6 @@
   recipeUnlocks:
   - WeaponAdvancedLaser
   - PortableRecharger
-  - GamblagatorCapacitor # DeltaV - added for superweapon
   - WeaponEnergyGunAdvanced # DeltaV - Advanced Energy Gun
 
 - type: technology

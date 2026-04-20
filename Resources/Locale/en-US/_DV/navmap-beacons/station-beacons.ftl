@@ -20,6 +20,7 @@ station-beacon-forensic-mantis = Mantis
 station-beacon-mailroom = Mail
 
 station-beacon-engi-outpost = Engi Outpost
+station-beacon-atmos-outpost = Atmos Outpost
 
 station-beacon-janitor-office = Jani Office
 station-beacon-janitor-closet = Jani Closet
@@ -34,10 +35,20 @@ station-beacon-camera-servers = Cameras
 station-beacon-boxing-ring = Boxing
 station-beacon-park = Park
 station-beacon-laser-tag = Laser Tag
+station-beacon-restroom = Restroom
+station-beacon-arcade = Arcade
+station-beacon-laundromat = Laundromat
+station-beacon-pool = Pool
+station-beacon-barbershop = Barbershop
+station-beacon-zoo = Zoo
 
 station-beacon-corpsman = Corpsman
+station-beacon-security-solitary = Solitary Confinement
+station-beacon-bomb-training = Bomb Training
+station-beacon-perma-disposals = Perma Disposals
 
 station-beacon-justice = Justice
 station-beacon-chiefjustice = Chief Justice
 station-beacon-prosecutor = Prosecutor
 station-beacon-clerk = Clerk
+station-beacon-attorney = Attorney

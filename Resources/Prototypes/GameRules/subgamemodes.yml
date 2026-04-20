@@ -27,12 +27,17 @@
       allowNonHumans: true
       multiAntagSetting: NotExclusive
       startingGear: ThiefGear
-      #components: # DeltaV - forced pacifism is lame
-      #- type: Pacified
+      # components:
+      # - type: Pacified # DeltaV - forced pacifism is lame
+      # - type: Thieving # DeltaV - remove innate thieving ability
+      #  stripTimeReduction: 2
+      #  stealthy: true
       mindRoles:
       - MindRoleThief
       briefing:
         sound: "/Audio/Misc/thief_greeting.ogg"
+  - type: DynamicRuleCost
+    cost: 75
 
 # Needs testing
 - type: entity
@@ -67,3 +72,36 @@
         nameFormat: name-format-wizard
       mindRoles:
       - MindRoleWizard
+
+- type: entity
+  parent: BaseGameRule
+  id: Xenoborgs
+  components:
+  - type: XenoborgsRule
+  - type: RuleGrids
+  - type: GameRule
+    minPlayers: 30
+  - type: LoadMapRule
+    gridPath: /Maps/Shuttles/mothership.yml
+  - type: AntagMultipleRoleSpawner
+    antagRoleToPrototypes:
+      MothershipCore: [ MothershipCore ]
+      Xenoborg: [ XenoborgEngi, XenoborgHeavy, XenoborgScout, XenoborgStealth ]
+    pickAndTake: true
+  - type: AntagSelection
+    selectionTime: PrePlayerSpawn
+    definitions:
+    - prefRoles: [ MothershipCore ]
+      fallbackRoles: [ Xenoborg ]
+      spawnerPrototype: SpawnPointGhostRoleMothershipCore
+      mindRoles:
+      - MindRoleMothershipCore
+    - prefRoles: [ Xenoborg ]
+      fallbackRoles: [ MothershipCore ]
+      spawnerPrototype: SpawnPointGhostRoleXenoborg
+      mindRoles:
+      - MindRoleXenoborg
+      min: 4
+      max: 4
+  - type: DynamicRuleCost
+    cost: 200

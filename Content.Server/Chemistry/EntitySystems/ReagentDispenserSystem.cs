@@ -24,7 +24,7 @@ namespace Content.Server.Chemistry.EntitySystems
     /// <seealso cref="ReagentDispenserComponent"/>
     /// </summary>
     [UsedImplicitly]
-    public sealed class ReagentDispenserSystem : EntitySystem
+    public sealed partial class ReagentDispenserSystem : EntitySystem // Frontier - Made Partial, Auto-Label
     {
         [Dependency] private readonly AudioSystem _audioSystem = default!;
         [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
@@ -41,8 +41,8 @@ namespace Content.Server.Chemistry.EntitySystems
 
             SubscribeLocalEvent<ReagentDispenserComponent, ComponentStartup>(SubscribeUpdateUiState);
             SubscribeLocalEvent<ReagentDispenserComponent, SolutionContainerChangedEvent>(SubscribeUpdateUiState);
-            SubscribeLocalEvent<ReagentDispenserComponent, EntInsertedIntoContainerMessage>(SubscribeUpdateUiState, after: [typeof(SharedStorageSystem)]);
             SubscribeLocalEvent<ReagentDispenserComponent, EntRemovedFromContainerMessage>(SubscribeUpdateUiState, after: [typeof(SharedStorageSystem)]);
+            //SubscribeLocalEvent<ReagentDispenserComponent, EntInsertedIntoContainerMessage>(SubscribeUpdateUiState, after: [typeof(SharedStorageSystem)]); // Frontier - Auto-Label
             SubscribeLocalEvent<ReagentDispenserComponent, BoundUIOpenedEvent>(SubscribeUpdateUiState);
 
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserSetDispenseAmountMessage>(OnSetDispenseAmountMessage);
@@ -50,9 +50,9 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserEjectContainerMessage>(OnEjectReagentMessage);
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
 
-            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new []{typeof(ItemSlotsSystem)});
+            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new[] { typeof(ItemSlotsSystem) });
+            InitializeAutoLabeling(); // Frontier - Auto-Label
         }
-
         private void SubscribeUpdateUiState<T>(Entity<ReagentDispenserComponent> ent, ref T ev)
         {
             UpdateUiState(ent);
@@ -134,7 +134,7 @@ namespace Content.Server.Chemistry.EntitySystems
             // Ensure that the reagent is something this reagent dispenser can dispense.
             var storageLocation = message.StorageLocation;
             var storedContainer = storage.StoredItems.FirstOrDefault(kvp => kvp.Value == storageLocation).Key;
-            if (storedContainer == null)
+            if (storedContainer == EntityUid.Invalid)
                 return;
 
             var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
@@ -146,10 +146,10 @@ namespace Content.Server.Chemistry.EntitySystems
             {
                 // force open container, if applicable, to avoid confusing people on why it doesn't dispense
                 _openable.SetOpen(storedContainer, true);
-                _solutionTransferSystem.Transfer(reagentDispenser,
+                _solutionTransferSystem.Transfer(new SolutionTransferData(reagentDispenser,
                         storedContainer, src.Value,
                         outputContainer.Value, dst.Value,
-                        (int)reagentDispenser.Comp.DispenseAmount);
+                        (int)reagentDispenser.Comp.DispenseAmount));
             }
 
             UpdateUiState(reagentDispenser);
@@ -165,7 +165,7 @@ namespace Content.Server.Chemistry.EntitySystems
 
             var storageLocation = message.StorageLocation;
             var storedContainer = storage.StoredItems.FirstOrDefault(kvp => kvp.Value == storageLocation).Key;
-            if (storedContainer == null)
+            if (storedContainer == EntityUid.Invalid)
                 return;
 
             _handsSystem.TryPickupAnyHand(message.Actor, storedContainer);

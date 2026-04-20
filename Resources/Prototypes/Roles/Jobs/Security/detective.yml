@@ -6,17 +6,15 @@
   requirements:
   - !type:RoleTimeRequirement
     role: JobSecurityOfficer
-    time: 18000 #5 hrs
+    time: 5h
   startingGear: DetectiveGear
   icon: "JobIconDetective"
   supervisors: job-supervisors-hos
   canBeAntag: false
-  whitelisted: true # DeltaV
   access:
   - Security
   #- Brig # DeltaV - Removed brig access
   - Maintenance
-  #- Service # DeltaV - Sec isn't service
   - Detective
   - Cryogenics
   - External
@@ -27,7 +25,7 @@
 - type: startingGear
   id: DetectiveGear
   equipment:
-    eyes: ClothingEyesGlassesSecurity
+    #eyes: ClothingEyesGlassesSecurity # DeltaV - loadouts
     id: DetectivePDA
     gloves: ClothingHandsGlovesForensic # DeltaV - roundstart detective forensic gloves
     ears: ClothingHeadsetSecurity
@@ -37,3 +35,13 @@
     - Flash
     - ForensicPad
     - ForensicScanner
+
+- type: chameleonOutfit
+  id: DetectiveChameleonOutfit
+  job: Detective
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatFedoraBrown
+    mask: ClothingMaskGasSecurity
+    neck: ClothingNeckTieDet
+    gloves: ClothingHandsGlovesForensic

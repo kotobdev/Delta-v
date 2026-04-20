@@ -6,8 +6,8 @@
   antagAdvantage: 8 # DeltaV - Reduced TC: External Access + Free hardsuit and weapons
   requirements:
     - !type:DepartmentTimeRequirement
-      department: Logistics # DeltaV - Logistics department replacing Cargo
-      time: 9000 # 2.5 hrs
+      department: Logistics # DeltaV
+      time: 2.5h
   icon: "JobIconShaftMiner"
   startingGear: SalvageSpecialistGear
   supervisors: job-supervisors-qm
@@ -26,3 +26,15 @@
   storage: # DeltaV: Add mining voucher
     back:
     - MiningVoucher
+
+- type: chameleonOutfit
+  id: SalvageSpecialistChameleonOutfit
+  job: SalvageSpecialist
+  equipment:
+    head: ClothingHeadHatCargosoft
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskGasExplorer
+    outerClothing: ClothingOuterWinterMiner
+    neck: ClothingNeckScarfStripedBrown
+    gloves: ClothingHandsGlovesColorBlack
+

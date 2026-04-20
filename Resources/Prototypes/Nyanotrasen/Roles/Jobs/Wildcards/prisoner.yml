@@ -12,7 +12,7 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 21600
+      time: 6h
   special:
   - !type:AddImplantSpecial
     implants: [ TrackingImplant ]
@@ -22,3 +22,11 @@
   equipment:
     id: PrisonerPDA
     ears: ClothingHeadsetPrison
+
+- type: chameleonOutfit
+  id: PrisonerChameleonOutfit
+  job: Prisoner
+  equipment:
+    id: PrisonerPDA
+    ears: ClothingHeadsetPrison
+    jumpsuit: ClothingUniformJumpsuitPrisoner

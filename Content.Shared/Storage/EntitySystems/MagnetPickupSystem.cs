@@ -1,8 +1,7 @@
-using Content.Server.Storage.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Item.ItemToggle; // DeltaV
+using Content.Shared.Storage.Components;
 using Content.Shared.Whitelist;
-using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
@@ -50,6 +49,7 @@ public sealed class MagnetPickupSystem : EntitySystem
                 continue;
 
             comp.NextScan += ScanDelay;
+            Dirty(uid, comp);
 
             // Begin DeltaV Addition: Make ore bags use ItemToggle
             if (!_toggle.IsActivated(uid))
