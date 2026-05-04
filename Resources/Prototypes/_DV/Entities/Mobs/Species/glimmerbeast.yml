@@ -1,0 +1,144 @@
+- type: entity
+  name: Urist McGlimmer
+  parent: [ BaseMobSpecies, MobFlammable ]
+  id: BaseMobGlimmerbeast
+  abstract: true
+  components:
+  - type: HumanoidAppearance
+    species: Glimmerbeast
+    displayExamineInfo: false
+  - type: Inventory
+    speciesId: glimmerbeast
+    templateId: glimmerbeast
+  - type: Icon
+    sprite: _DV/Mobs/Species/Glimmerbeast/parts.rsi
+    state: full
+  - type: Body
+    prototype: Glimmerbeast
+    requiredLegs: 2
+  - type: Speech # placeholder
+    speechSounds: Vulpkanin
+    speechVerb: Vulpkanin
+  #- type: Sprite # it's included for vulps for some reason i have literally zero idea why
+  #  netsync: false
+  #  noRot: true
+  #  drawdepth: Mobs
+  #  layers:
+  #    - map: [ "enum.HumanoidVisualLayers.Chest" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Head" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Snout" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
+  #    - map: [ "enum.HumanoidVisualLayers.RArm" ]
+  #    - map: [ "enum.HumanoidVisualLayers.LArm" ]
+  #    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
+  #    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+  #    - shader: StencilClear
+  #      sprite: Mobs/Species/Human/parts.rsi #PJB on stencil clear being on the left leg: "...this is 'fine'" -https://github.com/space-wizards/space-station-14/pull/12217#issuecomment-1291677115
+  #      # its fine, but its still very stupid that it has to be done like this instead of allowing sprites to just directly insert a stencil clear.
+  #      # sprite refactor when
+  #      state: l_leg
+  #    - shader: StencilMask
+  #      map: [ "enum.HumanoidVisualLayers.StencilMask" ]
+  #      sprite: _DV/Mobs/Customization/Vulpkanin/masking_helpers.rsi
+  #      state: female_full
+  #      visible: false
+  #    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+  #    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+  #    - map: [ "jumpsuit" ]
+  #    - map: [ "enum.HumanoidVisualLayers.LHand" ]
+  #    - map: [ "enum.HumanoidVisualLayers.RHand" ]
+  #    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
+  #    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+  #      color: "#ffffff"
+  #      sprite: Objects/Misc/handcuffs.rsi
+  #      state: body-overlay-2
+  #      visible: false
+  #    - map: [ "id" ]
+  #    - map: [ "gloves" ]
+  #    - map: [ "shoes" ]
+  #    - map: [ "ears" ]
+  #    - map: [ "outerClothing" ]
+  #    - map: [ "eyes" ]
+  #    - map: [ "belt" ]
+  #    - map: [ "back" ]
+  #    - map: [ "neck" ]
+  #    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Hair" ]
+  #    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
+  #    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
+  #    - map: [ "enum.HumanoidVisualLayers.Tail" ]
+  #    - map: [ "mask" ]
+  #    - map: [ "head" ]
+  #    - map: [ "pocket1" ]
+  #    - map: [ "pocket2" ]
+  #    - map: [ "clownedon" ] # Dynamically generated
+  #      sprite: "_DV/Effects/creampie.rsi"
+  #      state: "creampie_vulpkanin"
+  #      visible: false
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      path: /Audio/Weapons/pierce.ogg
+    angle: 30
+    animation: WeaponArcClaw
+    damage: # I'll be honest, I really don't want this dealing shadow.
+      types:
+        Shadow: 11
+        Slash: 15
+  - type: Damageable
+  - type: Vocal # placeholder
+    sounds:
+      Male: MaleVulpkanin
+      Female: FemaleVulpkanin
+      Unsexed: MaleVulpkanin
+  - type: Insulated
+  - type: MobThresholds # In their actual context, this should probably be 75-100. Balance pass needed
+    thresholds:
+      0: Alive
+      74.99: Critical
+      75: Dead # This is also a hack to make deathgasps not appear, FYI.
+  - type: PassiveDamage # Gamer passive regen.
+    allowedStates:
+    - Alive
+    - Critical
+    damage:
+      types:
+        Heat: -5.0
+      groups:
+        Brute: -5.0
+  - type: PointLight
+    color: "#9b79d9"
+    radius: 1.5
+    energy: 3
+    castShadows: false
+  - type: NightVision
+    isEquipment: false
+    color: "#cdb4f0"
+    activateSound: null
+    deactivateSound: null
+  # mystery...
+  - type: Grammar
+    attributes:
+      gender: neuter
+      proper: true
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      200: 1.0
+  # This would be better accomplished via fontId override in speech_verbs, for mysterious custom fontspeak
+  # however, apparently font overrides in the chatbox/speech bubble have been broken upstream for some amount of time. Sad!
+  - type: SyllableObfuscationAccent 
+    accent: glimmerspeak
+  - type: GlimmerCreatureShader
+  - type: Glimmerbeast
+    despawnVfx: CosmicGenericVFX # todo: something more unique, perhaps
+
+- type: entity
+  save: false
+  parent: BaseSpeciesDummy
+  id: MobGlimmerbeastDummy
+  categories: [ HideSpawnMenu ]
+  description: A dummy gli- who are you? HOW DID YOU GET HERE?
+  components:
+  - type: Inventory
+    speciesId: glimmerbeast

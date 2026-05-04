@@ -87,3 +87,17 @@
   - u
   - s
   - s
+
+- type: syllableObfuscationAccent
+  id: glimmerspeak
+  minSyllables: 1
+  maxSyllables: 6
+  replacement:
+  - ˥
+  - ˦
+  - ˧
+  - ˨
+  - ˩
+  - ˪
+  - ˫
+  - ˾

@@ -1,0 +1,43 @@
+- type: entity
+  name: spike caster
+  parent: [BaseWeaponBattery, BaseGunWieldable]
+  id: WeaponGlimmerSpikeCaster
+  description: ???
+  components:
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Battery/asakimrifle.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Mono/Objects/Weapons/Guns/Battery/asakimrifle.rsi
+  - type: GunWieldBonus
+    minAngle: -18
+    maxAngle: -14
+  - type: Gun
+    projectileSpeed: 25 # embeddables need to go relatively slow
+    minAngle: 18
+    maxAngle: 26
+    fireRate: 3
+    burstFireRate: 6
+    shotsPerBurst: 3 # DeltaV - was 5
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    #- Burst
+    #- FullAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/ship_svalinn.ogg
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: false
+  - type: BatteryAmmoProvider
+    proto: GlimmerSpike
+    fireCost: 50 # DeltaV - doubled fire cost, was 25
+  - type: Appearance
+  - type: BatterySelfRecharger
+    autoRechargeRate: 30 # DeltaV - double to compensate for increased cost, was 15
+  - type: GlimmerCreatureShader

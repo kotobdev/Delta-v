@@ -114,6 +114,12 @@ public sealed partial class HumanoidAppearanceComponent : Component
     /// </summary>
     [DataField]
     public Dictionary<HumanoidVisualLayers, DisplacementData> MarkingsDisplacement = new();
+
+    /// <summary>
+    /// DeltaV - Display examine info?
+    /// </summary>
+    [DataField]
+    public bool DisplayExamineInfo = true;
 }
 
 [DataDefinition]

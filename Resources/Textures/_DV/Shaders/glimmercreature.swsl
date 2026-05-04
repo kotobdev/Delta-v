@@ -1,0 +1,77 @@
+//shader_type canvas_item;
+
+light_mode unshaded;
+
+// They don't want you to know this, but 99% of writing shaders is Google,
+// staring at random GitHub gists for three hours, prayer, and crying.
+// Guesstimated variable precision.
+// Prototyped using Godot.
+
+mediump vec2 random(mediump vec2 uv){
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+mediump float noise(mediump vec2 uv) {
+    mediump vec2 uv_index = floor(uv);
+    mediump vec2 uv_fract = fract(uv);
+
+    mediump vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+
+    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) + 0.5;
+}
+
+// this has HORRENDOUS performance. DO NOT PR WITH THIS
+highp float fbm(mediump vec2 uv) {
+    mediump float value = 0.0;
+    mediump float amplitude = 0.5;
+    mediump float frequency = 1.0;
+    
+    for (int i = 0; i < 3; i++) {
+        value += amplitude * noise(uv * frequency);
+        frequency *= 2.0;
+        amplitude *= 0.5;
+    }
+    return value;
+}
+
+// I'll be real I have zero fucking idea what this does
+mediump vec4 iridescence(mediump float phase) {
+    return vec4(0.4, 0.2, 0.5, 1.0) + vec4(0.3, 0.45, 0.5, 0.0) * cos(phase * 6.28318 + vec4(0.0, 2.094, 4.189, 0.0));
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	
+    highp vec4 tex = texture(TEXTURE, UV);
+
+    // surely fbm noise is performant :clueless:
+	// inb4 glimmer shader performance issues part 2
+    highp float t = TIME * 0.5;
+    highp float n1 = fbm((UV / 0.1) + vec2( t,  t));
+    highp float n2 = fbm((UV / 0.1) + vec2(-t, -t));
+    mediump float combined = n1 + n2;
+
+    // i miss my blender shader graph
+    mediump vec2 warpedUV = UV + vec2(n1, n2) * 0.2;
+    mediump vec4 texWarped = texture(TEXTURE, warpedUV);
+
+    mediump vec4 iridescentColor = iridescence(combined);
+	
+	mediump float cyclicNoise = noise(vec2(tex.b * tex.a, sin(TIME * 0.6)));
+
+    //mediump float surface = tex.b * tex.a;
+	mediump float surface = tex.b * texWarped.a;
+    surface = mix(surface, surface * combined, 0.8 + tex.r * 0.0); // red channel should pop out
+	surface *= cyclicNoise;
+
+    mediump vec4 col = vec4(vec3(surface), 1.0);
+    col = mix(col, iridescentColor, texWarped.b + (tex.r * 0.6));
+
+    highp float alpha = tex.a * (tex.b + 0.5) * ((combined*0.5)+0.5);
+    COLOR = vec4(col.rgb, alpha);
+}

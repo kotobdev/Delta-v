@@ -1,0 +1,8 @@
+- type: marking
+  id: GlimmerbeastStringy
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [Glimmerbeast]
+  sprites:
+  - sprite: _DV/Mobs/Customization/Glimmerbeast/head_markings.rsi
+    state: stringy

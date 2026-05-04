@@ -204,3 +204,27 @@
       color: lightgreen
   - type: TimedDespawn
     lifetime: 0.08
+
+- type: entity
+  id: GlimmerSpike
+  name: glimmer spike
+  parent: BaseArrow
+  components:
+  - type: Sprite
+    sprite: _DV/Objects/Weapons/Guns/Projectiles/glimmer_spike.rsi
+    layers:
+    - state: spike
+  - type: EmbedPassiveDamage
+    damage:
+      types:
+        Slash: 0.5
+        Shadow: 0.25
+  - type: Projectile
+    deleteOnCollide: false
+    onlyCollideWhenShot: true
+    damage:
+      types:
+        Piercing: 18
+        Shadow: 2
+  - type: TimedDespawn
+    lifetime: 20 # plenty of time to deal some passive damage

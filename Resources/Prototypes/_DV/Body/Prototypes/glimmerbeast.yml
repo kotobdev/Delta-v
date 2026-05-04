@@ -1,0 +1,50 @@
+- type: body
+  name: "glimmerbeast"
+  id: Glimmerbeast
+  root: torso
+  slots:
+    head:
+      part: HeadGlimmerbeast
+      connections:
+      - torso
+      organs:
+        brain: OrganHumanBrain
+        eyes: OrganHumanEyes
+    torso:
+      part: TorsoGlimmerbeast
+      organs: # TODO: custom organs (real)
+        heart: OrganAnimalHeart
+        lungs: OrganAnimalLungs
+        stomach: OrganAnimalStomach
+        liver: OrganAnimalLiver
+        kidneys: OrganAnimalKidneys
+      connections:
+      - right arm
+      - left arm
+      - right leg
+      - left leg
+      - head # Shitmed Change
+    right arm:
+      part: RightArmGlimmerbeast
+      connections:
+      - right hand
+    left arm:
+      part: LeftArmGlimmerbeast
+      connections:
+      - left hand
+    right hand:
+      part: RightHandGlimmerbeast
+    left hand:
+      part: LeftHandGlimmerbeast
+    right leg:
+      part: RightLegGlimmerbeast
+      connections:
+      - right foot
+    left leg:
+      part: LeftLegGlimmerbeast
+      connections:
+      - left foot
+    right foot:
+      part: RightFootGlimmerbeast
+    left foot:
+      part: LeftFootGlimmerbeast

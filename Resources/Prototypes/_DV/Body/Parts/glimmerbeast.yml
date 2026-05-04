@@ -1,0 +1,66 @@
+- type: entity
+  id: PartGlimmerbeast
+  parent: BasePart
+  name: "glimmerbeast body part"
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DV/Mobs/Species/Glimmerbeast/parts.rsi
+  - type: Icon
+    sprite: _DV/Mobs/Species/Glimmerbeast/parts.rsi
+  - type: BodyPart
+    species: Avali
+
+- type: entity
+  id: TorsoGlimmerbeast
+  name: "glimmerbeast torso"
+  parent: [PartGlimmerbeast, BaseTorso]
+  #- type: Sprite # I HATE THIS SHIT
+  #  state: "torso"
+
+- type: entity
+  id: HeadGlimmerbeast
+  name: "glimmerbeast head"
+  parent: [PartGlimmerbeast, BaseHead]
+  #- type: Sprite
+  #  state: "head"
+
+- type: entity
+  id: LeftArmGlimmerbeast
+  name: "left glimmerbeast arm"
+  parent: [PartGlimmerbeast, BaseLeftArm]
+
+- type: entity
+  id: RightArmGlimmerbeast
+  name: "right glimmerbeast arm"
+  parent: [PartGlimmerbeast, BaseRightArm]
+
+- type: entity
+  id: LeftHandGlimmerbeast
+  name: "left glimmerbeast hand"
+  parent: [PartGlimmerbeast, BaseLeftHand]
+
+- type: entity
+  id: RightHandGlimmerbeast
+  name: "right glimmerbeast hand"
+  parent: [PartGlimmerbeast, BaseRightHand]
+
+- type: entity
+  id: LeftLegGlimmerbeast
+  name: "left glimmerbeast leg"
+  parent: [PartGlimmerbeast, BaseLeftLeg]
+
+- type: entity
+  id: RightLegGlimmerbeast
+  name: "right glimmerbeast leg"
+  parent: [PartGlimmerbeast, BaseRightLeg]
+
+- type: entity
+  id: LeftFootGlimmerbeast
+  name: "left glimmerbeast foot"
+  parent: [PartGlimmerbeast, BaseLeftFoot]
+
+- type: entity
+  id: RightFootGlimmerbeast
+  name: "right glimmerbeast foot"
+  parent: [PartGlimmerbeast, BaseRightFoot]
