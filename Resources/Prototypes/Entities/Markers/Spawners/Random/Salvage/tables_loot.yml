@@ -265,7 +265,6 @@
     - id: WeaponCrusherGlaive
     - id: ClothingOuterHardsuitSalvage
     - id: ChemistryBottleOmnizine
-    - id: ClothingShoesRealJordans # DeltaV
     - !type:GroupSelector
       children:
       - id: JetpackBlueFilled
