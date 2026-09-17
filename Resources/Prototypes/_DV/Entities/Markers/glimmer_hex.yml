@@ -1,0 +1,11 @@
+- type: entity
+  name: glimmer hex marker
+  description: You probably shouldn't see this.
+  id: GlimmerHexMarker
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    sprite: deprecated.rsi # godo
+    layers:
+    - state: deprecated
+  - type: GlimmerHexMarker
