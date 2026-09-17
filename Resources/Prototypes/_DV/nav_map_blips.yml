@@ -1,0 +1,9 @@
+# Perhaps a weird place for this, but it works.
+
+- type: navMapBlip
+  id: GlimmerHex
+  selectable: true
+  color: "#9b6bff"
+  scale: 3
+  texturePaths:
+  - /Textures/Interface/NavMap/beveled_hexagon.png

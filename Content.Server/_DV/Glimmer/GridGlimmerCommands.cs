@@ -1,8 +1,11 @@
+using Content.Server.Administration;
 using Content.Shared._DV.Glimmer;
+using Content.Shared.Administration;
 using Robust.Shared.Console;
 
 namespace Content.Shared._DV.Glimmer;
 
+[AdminCommand(AdminFlags.Debug)]
 public sealed class AddGlimmerCommand : IConsoleCommand
 {
     public string Command => "addglimmer";
@@ -18,6 +21,6 @@ public sealed class AddGlimmerCommand : IConsoleCommand
             return;
 
         var entManager = IoCManager.Resolve<IEntityManager>();
-        entManager.EntitySysManager.GetEntitySystem<GridGlimmerSystem>().AddGlimmer(shell.Player?.AttachedEntity, amount, radius);
+        entManager.EntitySysManager.GetEntitySystem<SharedGridGlimmerSystem>().AddGlimmer(shell.Player?.AttachedEntity, amount, radius);
     }
 }

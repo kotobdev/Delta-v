@@ -1,4 +1,6 @@
+using System.Numerics;
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._DV.Glimmer;
 
@@ -8,8 +10,9 @@ namespace Content.Shared._DV.Glimmer;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GlimmerHexMarkerComponent : Component
 {
+    [DataField]
     public string HexName = "IF YOU SEE THIS SOMETHING IS WRONG"; // godo
 
-    [AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public int Glimmer = 0;
 }

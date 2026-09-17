@@ -1,0 +1,20 @@
+- type: entity
+  parent: BaseItem
+  id: HandheldGlimmerMonitorTablet
+  name: handheld glimmer monitor
+  description: Displays hex glimmer levels throughout the station.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+  - type: ActivatableUI
+    key: enum.GlimmerNavMapUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.GlimmerNavMapUiKey.Key:
+        type: GlimmerNavMapBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
