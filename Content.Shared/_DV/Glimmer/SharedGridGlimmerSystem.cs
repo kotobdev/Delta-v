@@ -69,7 +69,7 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
 
         foreach (var (marker, distance) in targets)
         {
-            var weight = 1f / (distance + 0.01f); //0.01 avoid divide by 0
+            var weight = 1f / MathF.Max(distance, 0.01f); //0.01 avoid divide by 0
             totalWeight += weight;
         }
 
