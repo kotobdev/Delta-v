@@ -33,6 +33,7 @@
     - BaseStationLavaland
     - BaseStationExfiltration
     - BaseStationKeycardAuthenticationDevice
+    - BaseStationGlimmer
     # End DeltaV - Station additions
   categories: [ HideSpawnMenu ]
   components:

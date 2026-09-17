@@ -51,3 +51,9 @@
     actionThresholds:
       Mayday: 2
       Scuttling: 3
+
+- type: entity
+  abstract: true
+  id: BaseStationGlimmer
+  components:
+  - type: Glimmer

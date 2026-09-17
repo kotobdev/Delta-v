@@ -1,4 +1,6 @@
 using System.Numerics;
+using Content.Shared.Station;
+using Content.Shared.Station.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
@@ -13,6 +15,7 @@ public sealed class GridGlimmerSystem : EntitySystem
 {
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly SharedStationSystem _station = default!;
 
     private EntityQuery<GlimmerHexMarkerComponent> _hexQuery;
 
@@ -88,7 +91,13 @@ public sealed class GridGlimmerSystem : EntitySystem
 
         Log.Info("init'd");
 
-        if (!TryComp<MapGridComponent>(ent, out var mapGrid))
+        if (!TryComp<StationDataComponent>(ent, out var stationData))
+            return;
+
+        if (_station.GetLargestGrid((ent, stationData)) is not { } gridEnt) // i dont even know
+            return;
+
+        if (!TryComp<MapGridComponent>(gridEnt, out var mapGrid))
             return;
 
         Log.Info("made it past mapgrid check");
@@ -113,13 +122,15 @@ public sealed class GridGlimmerSystem : EntitySystem
                 xIter++;
 
                 var localPos = new Vector2i((int)x, (int)y); // they need to kill me dawg
-                var worldPos = new EntityCoordinates(ent, localPos);
+                var worldPos = new EntityCoordinates(gridEnt, localPos);
                 Log.Info($"Spawning marker: worldpos X={worldPos.X} Y={worldPos.Y}");
 
                 //var marker = SpawnAtPosition(ent.Comp.MarkerPrototype, worldPos);
                 var marker = SpawnAttachedTo(ent.Comp.MarkerPrototype, worldPos);
-                Log.Info($"Spawned marker {marker} with parent {_transform.GetParentUid(marker)}, should be attached to {ent}");
-                // NOTE: just nuke any hexes off-station this parenting shit is evil
+                Log.Info($"Spawned marker {marker} with parent {_transform.GetParentUid(marker)}, should be attached to {gridEnt}");
+
+                // TODO: just nuke any hexes off-station this parenting shit is evil
+
                 //_transform.SetParent(marker, ent);
                 //Log.Info($"Setting parent to {ent} for marker {marker}. Parent is now {_transform.GetParentUid(marker)}");
 
