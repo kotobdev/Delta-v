@@ -10,7 +10,7 @@ public sealed partial class MetapsionicPulsePowerComponent : BasePsionicPowerCom
 
     public override string PowerName { get; set; } = "psionic-power-name-metapsionic";
 
-    public override int MinGlimmerChanged { get; set; } = 1;
+    public override int MinGlimmerChanged { get; set; } = 5;
 
     public override int MaxGlimmerChanged { get; set; } = 10;
 

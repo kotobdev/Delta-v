@@ -10,9 +10,9 @@ public sealed partial class PyrokinesisPowerComponent : BasePsionicPowerComponen
 
     public override string PowerName { get; set; } = "psionic-power-name-Pyrokinesis";
 
-    public override int MinGlimmerChanged { get; set; } = 5;
+    public override int MinGlimmerChanged { get; set; } = 20;
 
-    public override int MaxGlimmerChanged { get; set; } = 15;
+    public override int MaxGlimmerChanged { get; set; } = 45;
 
     /// <summary>
     /// How many firestacks will be added on the target.

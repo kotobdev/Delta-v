@@ -11,9 +11,9 @@ public sealed partial class PrecognitionPowerComponent : BasePsionicPowerCompone
 
     public override string PowerName { get; set; } = "psionic-power-name-precognition";
 
-    public override int MinGlimmerChanged { get; set; } = 5;
+    public override int MinGlimmerChanged { get; set; } = 10;
 
-    public override int MaxGlimmerChanged { get; set; } = 10;
+    public override int MaxGlimmerChanged { get; set; } = 30;
 
     /// <summary>
     /// This dictates the chance that it'll return a wrong message, seeding unreliance.

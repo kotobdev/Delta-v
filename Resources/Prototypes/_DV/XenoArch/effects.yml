@@ -24,7 +24,7 @@
     range:
       min: 0
       max: 450 # cant instantly get ended by a looping artifact
-    change: 30
+    change: 60
 
 - type: entity
   parent: XenoArtifactRaiseGlimmer
