@@ -1,8 +1,8 @@
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Events;
 using Content.Shared.Jittering;
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Stunnable;
 using JetBrains.Annotations;
@@ -16,7 +16,7 @@ namespace Content.Shared._DV.Psionics.Systems;
 public abstract partial class SharedPsionicSystem : EntitySystem
 {
     [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] protected readonly GlimmerSystem Glimmer = default!;
+    [Dependency] protected readonly SharedGridGlimmerSystem Glimmer = default!;
     [Dependency] private readonly SharedJitteringSystem _jittering = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] protected readonly SharedPopupSystem Popup = default!;
@@ -59,7 +59,7 @@ public abstract partial class SharedPsionicSystem : EntitySystem
         if (!ev.Success)
             return;
         // Reduce glimmer a bit.
-        Glimmer.Glimmer -= Random.Next(50, 70);
+        Glimmer.AddGlimmer(psionic, Random.Next(130, 170));
         // Stun if stun is desired. Zombies shouldn't get stunned on zombification.
         if (stun && psionic.Comp.StunOnRemoval)
         {

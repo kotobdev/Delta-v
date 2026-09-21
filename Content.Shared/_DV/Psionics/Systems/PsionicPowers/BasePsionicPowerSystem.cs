@@ -1,3 +1,4 @@
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.Psionics.Events;
@@ -6,7 +7,6 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -23,7 +23,7 @@ public abstract class BasePsionicPowerSystem<T, T1> : EntitySystem where T : Bas
     [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] protected readonly SharedActionsSystem Action = default!;
     [Dependency] protected readonly SharedDoAfterSystem DoAfter = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmer = default!;
     [Dependency] protected readonly SharedPopupSystem Popup = default!;
     [Dependency] protected readonly SharedPsionicSystem Psionic = default!;
 
@@ -182,7 +182,7 @@ public abstract class BasePsionicPowerSystem<T, T1> : EntitySystem where T : Bas
         var ev = new PsionicPowerUsedEvent(performer, psionicSource, power);
         RaiseLocalEvent(psionicSource, ev);
 
-        _glimmer.Glimmer += Random.Next(psionicSource.Comp.MinGlimmerChanged, psionicSource.Comp.MaxGlimmerChanged);
+        _glimmer.AddGlimmer(psionicSource, Random.Next(psionicSource.Comp.MinGlimmerChanged, psionicSource.Comp.MaxGlimmerChanged));
     }
 
     /// <summary>
