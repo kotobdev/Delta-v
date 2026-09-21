@@ -5,7 +5,6 @@ using Content.Server.StationEvents.Components;
 using Content.Server.StationEvents.Events;
 using Content.Shared.Construction.EntitySystems;
 using Content.Shared.GameTicking.Components;
-using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 
@@ -15,7 +14,6 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
 {
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
     [Dependency] private readonly AnchorableSystem _anchorable = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
 
     private static readonly string ProberPrototype = "GlimmerProber";
@@ -36,7 +34,7 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
             }
         }
 
-        if (PossibleSpawns.Count == 0 || _glimmerSystem.Glimmer >= 500 || _robustRandom.Prob(0.25f))
+        if (PossibleSpawns.Count == 0 || _robustRandom.Prob(0.15f))
         {
             var queryBattery = EntityQueryEnumerator<PowerNetworkBatteryComponent>();
             while (query.MoveNext(out var battery, out var _))

@@ -1,10 +1,10 @@
 using Content.Server.Chat.Systems;
 using Content.Server.Radio.EntitySystems;
+using Content.Shared._DV.Glimmer;
 using Content.Shared.Chat;
 using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.StationEvents.Events;
 using Content.Shared.Interaction;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Robust.Shared.Prototypes;
@@ -15,7 +15,7 @@ namespace Content.Server.Nyanotrasen.Research.SophicScribe;
 public sealed partial class SophicScribeSystem : EntitySystem
 {
     [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmerSystem = default!;
     [Dependency] private readonly RadioSystem _radioSystem = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -26,9 +26,6 @@ public sealed partial class SophicScribeSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-
-        if (_glimmerSystem.Glimmer == 0)
-            return; // yes, return. Glimmer value is global.
 
         var curTime = _timing.CurTime;
 
@@ -41,7 +38,7 @@ public sealed partial class SophicScribeSystem : EntitySystem
             if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio))
                 continue;
 
-            var message = Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer));
+            var message = Loc.GetString("glimmer-report", ("level", _glimmerSystem.GetGlimmer(scribe)));
             var channel = _prototypeManager.Index<RadioChannelPrototype>(ScienceEncryptName);
             _radioSystem.SendRadioMessage(scribe, message, channel, scribe);
 
@@ -65,7 +62,7 @@ public sealed partial class SophicScribeSystem : EntitySystem
 
         component.StateTime = _timing.CurTime + component.StateCD;
 
-        _chat.TrySendInGameICMessage(uid, Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer)), InGameICChatType.Speak, true);
+        _chat.TrySendInGameICMessage(uid, Loc.GetString("glimmer-report", ("level", _glimmerSystem.GetGlimmer(uid))), InGameICChatType.Speak, true);
     }
 
     private void OnGlimmerEventEnded(ref GlimmerEventEndedEvent args)
@@ -82,7 +79,7 @@ public sealed partial class SophicScribeSystem : EntitySystem
                 speaker = swapped.OriginalEntity;
             }
 
-            var message = Loc.GetString(args.Message, ("decrease", args.GlimmerBurned), ("level", _glimmerSystem.Glimmer));
+            var message = Loc.GetString(args.Message, ("decrease", args.GlimmerBurned), ("level", _glimmerSystem.GetGlimmer(scribe)));
             var channel = _prototypeManager.Index<RadioChannelPrototype>(CommonEncryptName);
             _radioSystem.SendRadioMessage(speaker, message, channel, speaker);
         }

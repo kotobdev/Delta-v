@@ -1,12 +1,12 @@
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Xenoarcheology.XenoArtifacts.Effects.Components;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Xenoarchaeology.Artifact;
 
 namespace Content.Shared._DV.Xenoarcheology.XenoArtifacts.Effects.Systems;
 
 public sealed class XAEModifyGlimmerSystem : EntitySystem
 {
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmer = default!;
 
     public override void Initialize()
     {
@@ -18,10 +18,10 @@ public sealed class XAEModifyGlimmerSystem : EntitySystem
     private void OnActivated(Entity<XAEModifyGlimmerComponent> arti, ref XenoArtifactNodeActivatedEvent args)
     {
         var range = arti.Comp.Range;
-        var current = _glimmer.Glimmer;
+        var current = _glimmer.GetGlimmer(arti);
         if (range.Min > current || current > range.Max)
             return;
 
-        _glimmer.Glimmer += arti.Comp.Change;
+        _glimmer.AddGlimmer(arti, arti.Comp.Change);
     }
 }

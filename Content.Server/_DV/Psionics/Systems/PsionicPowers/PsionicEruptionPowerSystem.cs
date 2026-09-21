@@ -3,6 +3,7 @@ using Content.Server.EUI;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Jittering;
 using Content.Server.Lightning;
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.Psionics.Events.PowerActionEvents;
 using Content.Shared._DV.Psionics.Events.PowerDoAfterEvents;
@@ -11,7 +12,6 @@ using Content.Shared.Body;
 using Content.Shared.DoAfter;
 using Content.Shared.Gibbing;
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;
 using Robust.Server.Audio;
 using Robust.Server.Player;
 using Robust.Shared.Audio;
@@ -29,7 +29,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
     [Dependency] private readonly EuiManager _eui = default!;
     [Dependency] private readonly ExplosionSystem _explosion = default!;
     [Dependency] private readonly GibbingSystem _gibbing = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmer = default!;
     [Dependency] private readonly JitteringSystem _jittering = default!;
     [Dependency] private readonly LightningSystem _lightning = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -58,7 +58,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
     {
         TimeSpan detonateTime;
 
-        if (_glimmer.GetGlimmerTier(_glimmer.Glimmer) == GlimmerTier.Critical)
+        if (_glimmer.GetGlimmerTier(_glimmer.GetGlimmer(psionic)) == GlimmerTier.Critical)
             detonateTime = psionic.Comp.MaxDetonateDelay;
         else
             detonateTime = psionic.Comp.MinDetonateDelay;
@@ -101,7 +101,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
             if (curTime < comp.NextAnnoy)
                 continue;
 
-            _glimmer.Glimmer += _random.Next(1, 5); // Increase glimmer by a random amount.
+            _glimmer.AddGlimmer(psionic, _random.Next(1, 5)); // Increase glimmer by a random amount.
 
             var msg = GetSeverityMessage(psionic, out var messageSize, out var minWait);
             // Prompt the user to use the power.
@@ -113,7 +113,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
     private string GetSeverityMessage(EntityUid psionic, out PopupType messageSize, out TimeSpan minWait)
     {
         string message;
-        switch (_glimmer.GetGlimmerTier(_glimmer.Glimmer))
+        switch (_glimmer.GetGlimmerTier(_glimmer.GetGlimmer(psionic)))
         {
             case GlimmerTier.Minimal:
             default:
@@ -156,7 +156,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
 
     private void CauseSparks(EntityUid psionic, PsionicEruptionPowerComponent comp, TimeSpan curTime)
     {
-        if (_glimmer.GetGlimmerTier(_glimmer.Glimmer) == GlimmerTier.Critical && _random.Prob(0.125f))
+        if (_glimmer.GetGlimmerTier(_glimmer.GetGlimmer(psionic)) == GlimmerTier.Critical && _random.Prob(0.125f))
         {
             _lightning.ShootRandomLightnings(psionic, 5f, _random.Next(1, 3));
         }
@@ -179,7 +179,7 @@ public sealed class PsionicEruptionSystem : BasePsionicPowerSystem<PsionicErupti
         var pos = _transform.GetMapCoordinates(args.User);
         _gibbing.Gib(args.User, user: args.User);
 
-        int boom = _glimmer.GetGlimmerTier(_glimmer.Glimmer) switch
+        int boom = _glimmer.GetGlimmerTier(_glimmer.GetGlimmer(psionic)) switch
         {
             GlimmerTier.Minimal => 2,
             GlimmerTier.Low => 3,

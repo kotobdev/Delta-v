@@ -10,8 +10,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.EntityTable;
-using Content.Server.Psionics.Glimmer; // DeltaV
-using Content.Shared.Psionics.Glimmer; // DeltaV
 
 namespace Content.Server.StationEvents;
 
@@ -24,7 +22,6 @@ public sealed class EventManagerSystem : EntitySystem
     [Dependency] private readonly EntityTableSystem _entityTable = default!;
     [Dependency] public readonly GameTicker GameTicker = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!; //Nyano - Summary: pulls in the glimmer system.
 
     public bool EventsEnabled { get; private set; }
     private void SetEnabled(bool value) => EventsEnabled = value;
@@ -359,17 +356,6 @@ public sealed class EventManagerSystem : EntitySystem
         {
             return false;
         }
-
-        // Nyano - Summary: - Begin modified code block: check for glimmer events.
-        // This could not be cleanly done anywhere else.
-        if (_configurationManager.GetCVar(DCCVars.GlimmerEnabled) &&
-            prototype.TryGetComponent<GlimmerEventComponent>(out var glimmerEvent) &&
-            (_glimmer.Glimmer < glimmerEvent.MinimumGlimmer ||
-            _glimmer.Glimmer > glimmerEvent.MaximumGlimmer))
-        {
-            return false;
-        }
-        // Nyano - End modified code block.
 
         if (_roundEnd.IsRoundEndRequested() && !stationEvent.OccursDuringRoundEnd)
         {

@@ -1,8 +1,8 @@
 using System; // DeltaV
 using Content.Server.Research.Systems;
 using Content.Server.Xenoarchaeology.Artifact;
+using Content.Shared._DV.Glimmer; // DeltaV
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;// DeltaV
 using Content.Shared._DV.Xenoarchaeology.BUI;// DeltaV
 using Content.Shared.Xenoarchaeology.Equipment;
 using Content.Shared.Xenoarchaeology.Equipment.Components;
@@ -20,7 +20,7 @@ public sealed class ArtifactAnalyzerSystem : SharedArtifactAnalyzerSystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly ResearchSystem _research = default!;
     [Dependency] private readonly XenoArtifactSystem _xenoArtifact = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!; // DeltaV
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmerSystem = default!; // DeltaV
     [Dependency] private readonly ArtifactAnalyzerSystem _analyzerSystem = default!; //DeltaV
 
     /// <inheritdoc/>
@@ -55,39 +55,38 @@ public sealed class ArtifactAnalyzerSystem : SharedArtifactAnalyzerSystem
             if (analyzer != null)
             {
                 sumGlimmer += (int)(research / (float)analyzer.Value.Comp.ExtractRatio);
-                research = (int)(research * GetGlimmerMultiplier(analyzer.Value.Comp));
+                research = (int)(research * GetGlimmerMultiplier(analyzer.Value));
             }
             // End DeltaV
             sumResearch += research;
         }
-        UpdateClientUI(ent, analyzer!.Value); // DeltaV
+        UpdateClientUI((ent, analyzer!.Value)); // DeltaV
 
         // 4-16-25: It's a sad day when a scientist makes negative 5k research
         if (sumResearch <= 0)
             return;
 
-        _glimmerSystem.Glimmer += sumGlimmer; // DeltaV - Add glimmer based on extracted points.    
+        _glimmerSystem.AddGlimmer(ent, sumGlimmer); // DeltaV - Add glimmer based on extracted points.
         _research.ModifyServerPoints(server.Value, sumResearch, serverComponent);
         _audio.PlayPvs(ent.Comp.ExtractSound, artifact.Value);
         _popup.PopupEntity(Loc.GetString("analyzer-artifact-extract-popup"), artifact.Value, PopupType.Large);
     }
 
     // DeltaV
-    private void UpdateClientUI(EntityUid console, ArtifactAnalyzerComponent analyzer)
+    private void UpdateClientUI(Entity<ArtifactAnalyzerComponent> ent)
     {
 
         var uiSystem = EntityManager.System<UserInterfaceSystem>();
-        uiSystem.SetUiState(console, ArtifactAnalyzerUiKey.Key,
-            new AnalysisConsoleBoundUserInterfaceState(GetGlimmerMultiplier(analyzer), (float)analyzer.ExtractRatio));
+        uiSystem.SetUiState(ent.Owner, ArtifactAnalyzerUiKey.Key,
+            new AnalysisConsoleBoundUserInterfaceState(GetGlimmerMultiplier(ent), (float)ent.Comp.ExtractRatio));
     }
 
     // DeltaV
-    private float GetGlimmerMultiplier(ArtifactAnalyzerComponent comp)
+    private float GetGlimmerMultiplier(Entity<ArtifactAnalyzerComponent> ent)
     {
-        float normalizedGlimmer = Math.Clamp(_glimmerSystem.Glimmer / 1000f, 0, 1);
+        float normalizedGlimmer = Math.Clamp(_glimmerSystem.GetGlimmer(ent) / 1000f, 0, 1);
         //DeltaV - Prevents extreme glimmer multipliers
         return (float)(.5f + Math.Clamp(Math.Pow(normalizedGlimmer, 0.5f) + 1.5f * Math.Pow(normalizedGlimmer, 10f), 0f, 2.5f));
-
     }
 }
 

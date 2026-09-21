@@ -3,6 +3,7 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Gibbing;
 using Content.Shared._DV.Chapel;
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared.Body;
 using Content.Shared.DoAfter;
@@ -10,7 +11,6 @@ using Content.Shared.EntityTable;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind;
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -21,7 +21,7 @@ namespace Content.Server._DV.Chapel;
 public sealed class SacrificialAltarSystem : SharedSacrificialAltarSystem
 {
     [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmer = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
@@ -57,7 +57,7 @@ public sealed class SacrificialAltarSystem : SharedSacrificialAltarSystem
         _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(user):player} sacrificed {ToPrettyString(target):target} on {ToPrettyString(ent):altar}");
 
         // lower glimmer by a random amount
-        _glimmer.Glimmer -= ent.Comp.GlimmerReduction.Next(_random);
+        _glimmer.AddGlimmer(ent, ent.Comp.GlimmerReduction.Next(_random), 50f); // big sacrifice big radius
 
         // spawn all the loot
         var proto = _proto.Index(ent.Comp.RewardPool);

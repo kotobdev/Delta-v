@@ -6,6 +6,7 @@ using Content.Server.Chat.Systems;
 using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Psionics;
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Chat;
@@ -15,7 +16,6 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
 using Content.Shared.Research.Systems;
@@ -37,7 +37,7 @@ public sealed class OracleSystem : EntitySystem
     [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmerSystem = default!;
     [Dependency] private readonly PuddleSystem _puddleSystem = default!;
     [Dependency] private readonly SharedResearchSystem _research = default!;
 
@@ -213,7 +213,7 @@ public sealed class OracleSystem : EntitySystem
             .Where(x => !x.Abstract)
             .Select(x => x.ID).ToList();
 
-        var amount = 20 + _random.Next(1, 30) + _glimmerSystem.Glimmer / 10f;
+        var amount = 20 + _random.Next(1, 30) + _glimmerSystem.GetGlimmer(uid) / 10f;
         amount = (float) Math.Round(amount);
 
         var sol = new Solution();
