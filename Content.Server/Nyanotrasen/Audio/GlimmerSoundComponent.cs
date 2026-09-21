@@ -1,6 +1,6 @@
 using Content.Server.Psionics.Glimmer;
 using Content.Shared.Audio;
-using Content.Shared.Psionics.Glimmer;
+using Content.Shared._DV.Glimmer;
 using Robust.Shared.Audio;
 using Robust.Shared.ComponentTrees;
 using Robust.Shared.GameStates;

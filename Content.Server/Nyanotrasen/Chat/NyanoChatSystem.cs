@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using Content.Server._DV.Psionics.Systems;
 using Content.Shared._DV.Chat.Components;
+using Content.Shared._DV.Glimmer;
 using Content.Shared._DV.Psionics.Components;
 
 namespace Content.Server.Nyanotrasen.Chat;
@@ -30,7 +31,7 @@ public sealed class NyanoChatSystem : EntitySystem
     [Dependency] private readonly IChatManager _chatManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmerSystem = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly PsionicSystem _psionicSystem = default!;
 
@@ -94,11 +95,13 @@ public sealed class NyanoChatSystem : EntitySystem
         _chatManager.ChatMessageToMany(ChatChannel.Telepathic, message, adminMessageWrap, source, hideChat, true, admins, Color.PaleVioletRed);
 
         if (_random.Prob(0.1f))
-            _glimmerSystem.Glimmer++;
+            _glimmerSystem.AddGlimmer(source, 1f);
 
-        if (_random.Prob(Math.Min(0.33f + ((float) _glimmerSystem.Glimmer / 1500), 1)))
+        var sourceGlimmerLevel = _glimmerSystem.GetGlimmer(source);
+
+        if (_random.Prob(Math.Min(0.33f + ((float) sourceGlimmerLevel / 1500), 1)))
         {
-            float obfuscation = (0.25f + (float) _glimmerSystem.Glimmer / 2000);
+            float obfuscation = (0.25f + (float) sourceGlimmerLevel / 2000);
             var obfuscated = ObfuscateMessageReadability(message, obfuscation);
             _chatManager.ChatMessageToMany(ChatChannel.Telepathic, obfuscated, messageWrap, source, hideChat, false, GetDreamers(clients), Color.PaleVioletRed);
         }

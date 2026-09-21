@@ -278,7 +278,6 @@
           children:
           - id: NetProbeCartridge
           - id: CrewManifestCartridge
-          - id: GlimmerMonitorCartridge
           - id: LogProbeCartridge
           - id: NotekeeperCartridge
           - id: NanoTaskCartridge

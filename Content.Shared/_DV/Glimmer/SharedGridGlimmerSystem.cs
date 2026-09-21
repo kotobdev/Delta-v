@@ -3,6 +3,7 @@ using Content.Shared.Station;
 using Content.Shared.Station.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._DV.Glimmer;
 
@@ -95,12 +96,13 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
     /// </summary>
     /// <param name="ent">Entity to get glimmer level at the position of.</param>
     /// <remarks>
-    /// This will need to be adjusted a lot. This value should not be strictly relied on for... anything, really,
-    /// with its current implementation. It doesn't make much sense, but then again, does it really have to?
-    /// ...It probably has to. God, I don't want to rework this.
+    /// Expensive! This should be cached whenever possible.
+    /// Also, this calculation is entirely arbitrary and shouldn't ever be considered as "accurate" relative to
+    /// anything else.
     /// </remarks>
-    public float GetGlimmer(EntityUid? ent)
+    public int GetGlimmer(EntityUid? ent)
     {
+        // Don't question the int casting. I. I'm sorry.
         var total = 0f;
 
         // minimum radius to cover all spots is roughly 12 given a spacing of 20 units
@@ -111,7 +113,7 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
         Log.Info("uhmmmm... getting glimmer...");
 
         if (ent == null)
-            return total; // should probably have a case for getting "global" glimmer as a fallback
+            return (int)total; // should probably have a case for getting "global" glimmer as a fallback
 
         Log.Info("passed null check");
 
@@ -137,6 +139,35 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
             total += comp.Glimmer * falloff;
         }
 
-        return total;
+        return (int)total;
     }
+
+    /// <summary>
+    /// Return an abstracted range of a glimmer count.
+    /// </summary>
+    /// <param name="glimmer">What glimmer count to check.</param>
+    [Obsolete("Just... don't.")]
+    public GlimmerTier GetGlimmerTier(int glimmer)
+    {
+        return (glimmer) switch
+        {
+            <= 49 => GlimmerTier.Minimal,
+            >= 50 and <= 99 => GlimmerTier.Low,
+            >= 100 and <= 299 => GlimmerTier.Moderate,
+            >= 300 and <= 499 => GlimmerTier.High,
+            >= 500 and <= 899 => GlimmerTier.Dangerous,
+            _ => GlimmerTier.Critical,
+        };
+    }
+}
+
+[Serializable, NetSerializable]
+public enum GlimmerTier : byte
+{
+    Minimal,
+    Low,
+    Moderate,
+    High,
+    Dangerous,
+    Critical,
 }
