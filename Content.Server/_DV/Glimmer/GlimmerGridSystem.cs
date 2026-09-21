@@ -67,7 +67,13 @@ public sealed class GlimmerGridSystem : SharedGridGlimmerSystem
                 var marker = SpawnAttachedTo(ent.Comp.MarkerPrototype, worldPos);
                 Log.Info($"Spawned marker {marker} with parent {_transform.GetParentUid(marker)}, should be attached to {gridEnt}");
 
-                // TODO: just nuke any hexes off-station this parenting shit is evil
+                // just nuke any hexes off-station. for various reasons this has to be done
+                // this DOES create weird layouts on small grids with lots of holes (see: Dev) but its whatever
+                // on real stations
+                if (_transform.GetParentUid(marker) != gridEnt)
+                {
+                    QueueDel(marker);
+                }
 
                 //_transform.SetParent(marker, ent);
                 //Log.Info($"Setting parent to {ent} for marker {marker}. Parent is now {_transform.GetParentUid(marker)}");

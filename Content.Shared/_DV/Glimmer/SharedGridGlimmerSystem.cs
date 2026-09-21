@@ -25,7 +25,14 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
         //_hexQuery = GetEntityQuery<GlimmerHexMarkerComponent>();
     }
 
-    public void AddGlimmer(EntityUid? ent, float amount, float radius = 20)
+    /// <summary>
+    /// Adds a distance-relative amount of glimmer to hexes in a radius around the given entity.
+    /// If no hexes are in radius, the closest hex will be used.
+    /// </summary>
+    /// <param name="ent">Entity to use as glimmer source</param>
+    /// <param name="amount">How much total glimmer to add. This will be split among all hexes within radius, weighted by distance.</param>
+    /// <param name="radius">The radius to check for hexes in.</param>
+    public void AddGlimmer(EntityUid? ent, float amount, float radius = 15)
     {
         if (ent == null)
             return;
@@ -38,6 +45,8 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
 
         Log.Info("AddGlimmer iterating over targets now...");
 
+        // A lot of this file functions on the assumption that an EntityQueryEnumerator is going to be
+        // faster then lookup in radius. I don't know if this is true, but it feels like it would be.
         var query = EntityQueryEnumerator<GlimmerHexMarkerComponent>();
         while (query.MoveNext(out var marker, out var comp))
         {
@@ -79,5 +88,55 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
             marker.Comp.Glimmer += (int)(amount * weight); // i love casting to ints!! i love casting to ints!!!
             Log.Info($"Added {amount * weight} glimmer to {marker.Comp.HexName} (total: {marker.Comp.Glimmer}). Distance was {distance}, weight was {weight}");
         }
+    }
+
+    /// <summary>
+    /// Gets a vague glimmer level around an entity.
+    /// </summary>
+    /// <param name="ent">Entity to get glimmer level at the position of.</param>
+    /// <remarks>
+    /// This will need to be adjusted a lot. This value should not be strictly relied on for... anything, really,
+    /// with its current implementation. It doesn't make much sense, but then again, does it really have to?
+    /// ...It probably has to. God, I don't want to rework this.
+    /// </remarks>
+    public float GetGlimmer(EntityUid? ent)
+    {
+        var total = 0f;
+
+        // minimum radius to cover all spots is roughly 12 given a spacing of 20 units
+        // however then you'd have weird spots with zero glimmer, and we want glimmer to like. exist. everywhere?
+        // look the math afterwards keeps things reasonable anyways
+        var radius = 20f; //TODO: DEAR GOD PUT THIS IN MARKER COMP
+
+        Log.Info("uhmmmm... getting glimmer...");
+
+        if (ent == null)
+            return total; // should probably have a case for getting "global" glimmer as a fallback
+
+        Log.Info("passed null check");
+
+        var query = EntityQueryEnumerator<GlimmerHexMarkerComponent>();
+        while (query.MoveNext(out var marker, out var comp))
+        {
+            var pos = Transform(marker).Coordinates;
+
+            var distance = Vector2.Distance(_transform.GetWorldPosition(ent.Value), _transform.GetWorldPosition(marker));
+
+            Log.Info($"GetGlimmer iterating over marker {comp.HexName} at distance {distance}");
+
+            var t = distance / radius;
+
+            if (t > 1f)
+                continue;
+
+            var falloff = 1f - t;
+            falloff *= falloff;
+
+            Log.Info($"{comp.HexName} now adding {comp.Glimmer * falloff} glimmer (base: {comp.Glimmer}, falloff: {falloff})");
+
+            total += comp.Glimmer * falloff;
+        }
+
+        return total;
     }
 }

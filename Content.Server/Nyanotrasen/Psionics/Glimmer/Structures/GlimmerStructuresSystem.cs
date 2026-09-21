@@ -1,5 +1,6 @@
 using Content.Server.Anomaly.Components;
 using Content.Server.Power.EntitySystems;
+using Content.Shared._DV.Glimmer;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Power;
 using Content.Shared.Psionics.Glimmer;
@@ -12,7 +13,7 @@ namespace Content.Server.Psionics.Glimmer;
 public sealed class GlimmerStructuresSystem : EntitySystem
 {
     [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+    [Dependency] private readonly SharedGridGlimmerSystem _glimmerSystem = default!;
 
     public override void Initialize()
     {
@@ -42,20 +43,23 @@ public sealed class GlimmerStructuresSystem : EntitySystem
         // needs to be made in the future. I suggest a GlimmerAnomaly
         // component.
         if (TryComp<AnomalyComponent>(uid, out var anomaly))
-            _glimmerSystem.Glimmer += (int) (5f * anomaly.Severity);
+            _glimmerSystem.AddGlimmer(uid, (int)(5f * anomaly.Severity));
+            //_glimmerSystem.Glimmer += (int) (5f * anomaly.Severity);
     }
 
     private void OnAnomalySupercritical(EntityUid uid, GlimmerSourceComponent component, ref AnomalySupercriticalEvent args)
     {
-        _glimmerSystem.Glimmer += 100;
+        _glimmerSystem.AddGlimmer(uid, 100, 30f);
     }
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        foreach (var source in EntityQuery<GlimmerSourceComponent>())
+
+        var query = EntityQueryEnumerator<GlimmerSourceComponent>();
+        while (query.MoveNext(out var ent, out var source))
         {
-            if (!_powerReceiverSystem.IsPowered(source.Owner))
+            if (!_powerReceiverSystem.IsPowered(ent))
                 continue;
             if (!source.Active)
                 continue;
@@ -65,11 +69,11 @@ public sealed class GlimmerStructuresSystem : EntitySystem
                 source.Accumulator -= source.SecondsPerGlimmer;
                 if (source.AddToGlimmer)
                 {
-                    _glimmerSystem.Glimmer++;
+                    _glimmerSystem.AddGlimmer(ent, 1);
                 }
                 else
                 {
-                    _glimmerSystem.Glimmer--;
+                    _glimmerSystem.AddGlimmer(ent, -1);
                 }
             }
         }
