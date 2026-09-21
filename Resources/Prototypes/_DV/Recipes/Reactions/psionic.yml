@@ -33,7 +33,7 @@
     - !type:SpawnEntity
       entity: CrystalNormality
     - !type:AffectsGlimmer
-      amount: -10
+      amount: -25
 
 - type: reaction
   id: CreatePureOil
@@ -59,7 +59,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalZap
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreateTelegCrystal
@@ -75,7 +75,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalTeleg
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreatePrecogCrystal
@@ -91,7 +91,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalPrecog
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreateScreamCrystal
@@ -107,7 +107,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalScream
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreateDispelCrystal
@@ -123,7 +123,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalDispel
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreatePulseCrystal
@@ -139,7 +139,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalPulse
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreateRegenCrystal
@@ -155,7 +155,7 @@
   - !type:SpawnEntity
     entity: PsionCrystalRegen
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
 
 - type: reaction
   id: CreatePyroCrystal
@@ -171,4 +171,4 @@
   - !type:SpawnEntity
     entity: PsionCrystalPyro
   - !type:AffectsGlimmer
-    amount: -3
+    amount: -10
