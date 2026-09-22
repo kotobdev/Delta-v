@@ -12,7 +12,7 @@ public sealed partial class PyrokinesisPowerComponent : BasePsionicPowerComponen
 
     public override int MinGlimmerChanged { get; set; } = 20;
 
-    public override int MaxGlimmerChanged { get; set; } = 45;
+    public override int MaxGlimmerChanged { get; set; } = 55;
 
     /// <summary>
     /// How many firestacks will be added on the target.

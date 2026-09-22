@@ -24,7 +24,7 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
 using Content.Server.Research.Components;
 using Content.Shared._DV.Glimmer;
-using Content.Shared.Psionics.Glimmer;
+using Content.Shared.Psionics.Glimmer; // TODO: remove this using and clean up namespacing/everything
 
 namespace Content.Server.Psionics.Glimmer
 {
@@ -41,8 +41,6 @@ namespace Content.Server.Psionics.Glimmer
         [Dependency] private readonly EntityLookupSystem _entityLookupSystem = default!;
         [Dependency] private readonly AnchorableSystem _anchorableSystem = default!;
         [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!;
-        [Dependency] private readonly GhostSystem _ghostSystem = default!;
-        [Dependency] private readonly RevenantSystem _revenantSystem = default!;
         [Dependency] private readonly SharedTransformSystem _transform = default!;
         [Dependency] private readonly SharedPointLightSystem _pointLightSystem = default!;
 

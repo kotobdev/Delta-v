@@ -10,7 +10,7 @@ public sealed partial class DispelPowerComponent : BasePsionicPowerComponent
 
     public override string PowerName { get; set; } = "psionic-power-name-dispel";
 
-    public override int MinGlimmerChanged { get; set; } = 5;
+    public override int MinGlimmerChanged { get; set; } = 15;
 
-    public override int MaxGlimmerChanged { get; set; } = 10;
+    public override int MaxGlimmerChanged { get; set; } = 35;
 }

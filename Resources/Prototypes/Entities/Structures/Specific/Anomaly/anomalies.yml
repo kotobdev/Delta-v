@@ -61,7 +61,7 @@
   - type: Psionic #Nyano - Summary: makes psionic on creation.
   - type: GlimmerSource #Nyano - Summary: makes this a potential source of Glimmer.
     active: false
-    secondsPerGlimmer: 5f # DeltaV - glimmer 2.0 value adjustment
+    secondsPerGlimmer: 5 # DeltaV - glimmer 2.0 value adjustment
 
 - type: entity
   id: AnomalyPyroclastic

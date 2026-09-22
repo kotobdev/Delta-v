@@ -11,7 +11,7 @@ public sealed partial class PrecognitionPowerComponent : BasePsionicPowerCompone
 
     public override string PowerName { get; set; } = "psionic-power-name-precognition";
 
-    public override int MinGlimmerChanged { get; set; } = 10;
+    public override int MinGlimmerChanged { get; set; } = 15;
 
     public override int MaxGlimmerChanged { get; set; } = 30;
 
