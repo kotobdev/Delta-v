@@ -8,6 +8,13 @@ namespace Content.Shared._DV.CosmicCult.Components;
 [RegisterComponent]
 public sealed partial class CosmicCorruptibleComponent : Component
 {
-    [DataField(required: true)]
+    [DataField]
     public EntProtoId ConvertTo;
+
+    /// <summary>
+    /// A string referencing a preset in a CosmicCorruptingComponent.
+    /// Used to let different CosmicCorruptibleComponents convert an entity to different things.
+    /// </summary>
+    [DataField]
+    public string ConvertToPreset = string.Empty;
 }

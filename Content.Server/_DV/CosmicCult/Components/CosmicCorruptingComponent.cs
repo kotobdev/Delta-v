@@ -102,6 +102,15 @@ public sealed partial class CosmicCorruptingComponent : Component
     };
 
     /// <summary>
+    /// Dictionary for what entities with CosmicCorruptibleComponent ConvertToPreset strings should be converted to.
+    /// </summary>
+    [DataField]
+    public Dictionary<string, EntProtoId> PresetEntityConversionDict = new Dictionary<string, EntProtoId>()
+    {
+        {"Wall", "WallCosmicCult"},
+    };
+
+    /// <summary>
     /// The VFX entity we spawn when corruption occurs.
     /// </summary>
     [DataField]

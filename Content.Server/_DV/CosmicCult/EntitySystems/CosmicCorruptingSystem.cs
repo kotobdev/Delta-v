@@ -125,6 +125,12 @@ public sealed class CosmicCorruptingSystem : EntitySystem
                     }
                     else if (TryComp<CosmicCorruptibleComponent>(convertedEnt, out var corruptible))
                     {
+                        if (ent.Comp.PresetEntityConversionDict.TryGetValue(corruptible.ConvertToPreset, out var value))
+                        {
+                            ConvertEntity(convertedEnt, value);
+                            continue;
+                        }
+
                         ConvertEntity(convertedEnt, corruptible.ConvertTo);
                     }
                 }
@@ -138,7 +144,8 @@ public sealed class CosmicCorruptingSystem : EntitySystem
         }
     }
 
-    private void ConvertEntity(EntityUid convertedEnt, EntProtoId conversion)
+    // GlimmerCorruptingSystem can use this, made public
+    public void ConvertEntity(EntityUid convertedEnt, EntProtoId conversion)
     {
         var targetTransformComp = Transform(convertedEnt);
         var child = Spawn(conversion, _transform.GetMapCoordinates(convertedEnt, targetTransformComp));

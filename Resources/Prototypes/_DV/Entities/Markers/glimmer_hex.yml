@@ -9,3 +9,10 @@
     layers:
     - state: deprecated
   - type: GlimmerHexMarker
+  - type: GlimmerCorrupting # if this fails check AutoDisable on comp
+    enabled: false
+    conversionTile: FloorChromite # planetary grass unpryable iirc?
+    entityConversionDict:
+      Table: TableWood
+    presetEntityConversionDict:
+      Wall: WallWood

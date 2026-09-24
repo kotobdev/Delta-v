@@ -126,7 +126,7 @@
     key: walls
     base: brick
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -157,7 +157,7 @@
     key: walls
     base: clock
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -192,7 +192,7 @@
     key: walls
     base: clown
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
   - type: Fixtures
     fixtures:
       fix1:
@@ -325,7 +325,7 @@
     key: walls
     base: diamond
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -380,7 +380,7 @@
     key: walls
     base: gold
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -408,7 +408,7 @@
     key: walls
     base: ice
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -454,7 +454,7 @@
   - type: RadiationBlocker
     resistance: 5
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -498,7 +498,7 @@
     key: walls
     base: plastic
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -661,7 +661,7 @@
   - type: RadiationBlocker
     resistance: 8 # DeltaV - was 5
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
   - type: Fixtures
     fixtures:
       fix1:
@@ -713,7 +713,7 @@
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: WallDiagonalBase
@@ -859,7 +859,7 @@
     key: walls
     base: silver
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 #shuttle walls
 - type: entity
@@ -993,7 +993,7 @@
   - type: Reflect
     reflectProb: 1
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
   - type: Fixtures
     fixtures:
       fix1:
@@ -1049,7 +1049,7 @@
     key: walls
     base: solid
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: WallDiagonalBase
@@ -1125,7 +1125,7 @@
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -1308,7 +1308,7 @@
   - type: RadiationBlocker
     resistance: 6
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -1349,7 +1349,7 @@
     key: woods
     base: wood
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -1424,7 +1424,7 @@
     key: walls
     base: necropolis
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: BaseWall
@@ -1452,7 +1452,7 @@
     - miningB
   - type: Appearance
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: WallDiagonalBase
@@ -1519,7 +1519,7 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: WallVaultAlien
@@ -1626,7 +1626,7 @@
     key: cobblebricks
     base: cobblebrick
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
-    convertTo: WallCosmicCult
+    convertToPreset: Wall
 
 - type: entity
   parent: WallCobblebrick

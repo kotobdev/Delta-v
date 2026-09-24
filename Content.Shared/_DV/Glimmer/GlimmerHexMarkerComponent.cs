@@ -8,7 +8,7 @@ namespace Content.Shared._DV.Glimmer;
 /// Marks a hex entity for the locational glimmer system.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class GlimmerHexMarkerComponent : Component
+public sealed partial class GlimmerHexMarkerComponent : Component // TODO: probably just rename GlimmerHexComponent
 {
     [DataField]
     public string HexName = "IF YOU SEE THIS SOMETHING IS WRONG"; // godo
