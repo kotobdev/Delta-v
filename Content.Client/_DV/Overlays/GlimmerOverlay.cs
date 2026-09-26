@@ -16,7 +16,7 @@ public sealed class GlimmerOverlay : Overlay
     private readonly ShaderInstance _glimmerShader;
     private readonly ProtoId<ShaderPrototype> _shaderProto = "HighGlimmer";
 
-    private float _visualGlimmerLevel = 0f;
+    public float VisualGlimmerLevel = 0f;
     public int ActualGlimmerLevel = 0;
 
     public GlimmerOverlay()
@@ -40,12 +40,12 @@ public sealed class GlimmerOverlay : Overlay
         var lastFrameTime = (float) _timing.FrameTime.TotalSeconds;
 
         // lerp glimmer level to avoid jumps
-        _visualGlimmerLevel = !MathHelper.CloseTo(_visualGlimmerLevel, ActualGlimmerLevel, 0.001f)
-            ? float.Lerp(_visualGlimmerLevel, ActualGlimmerLevel, 0.1f * lastFrameTime)
+        VisualGlimmerLevel = !MathHelper.CloseTo(VisualGlimmerLevel, ActualGlimmerLevel, 0.001f)
+            ? float.Lerp(VisualGlimmerLevel, ActualGlimmerLevel, 0.6f * lastFrameTime) // increased from 0.1
             : ActualGlimmerLevel;
 
         // clamp glimmer to 0-1, map to exponential ease-out
-        var progress = Math.Clamp((_visualGlimmerLevel - 700f) / 300f,0,1);
+        var progress = Math.Clamp((VisualGlimmerLevel - 500f) / 300f,0,1);
         var size = 1f - MathF.Pow(2f, -8f * progress);
 
         _glimmerShader.SetParameter("size",size);
@@ -60,7 +60,7 @@ public sealed class GlimmerOverlay : Overlay
     // used to avoid lerp jump if overlay was removed weirdly prior
     public void Reset()
     {
-        _visualGlimmerLevel = ActualGlimmerLevel;
+        VisualGlimmerLevel = 0f;
     }
 
 }

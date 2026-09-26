@@ -1,17 +1,18 @@
 using Content.Shared.Maps;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server._DV.Glimmer;
+namespace Content.Shared._DV.Glimmer;
 
-[RegisterComponent, AutoGenerateComponentPause]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
 public sealed partial class GlimmerCorruptingComponent : Component
 {
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField] public TimeSpan CorruptionTimer;
 
     [DataField]
-    public bool Enabled = true;
+    public bool Enabled = false;
 
     [DataField]
     public float Radius = 15f; //should match glimmer hex radius. roughly

@@ -15,8 +15,8 @@ namespace Content.Shared._DV.Glimmer;
 public abstract class SharedGridGlimmerSystem : EntitySystem
 {
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-
-    //private EntityQuery<GlimmerHexMarkerComponent> _hexQuery;
+    [Dependency] private readonly GlimmerHexMarkerSystem _glimmerHex = default!;
+//private EntityQuery<GlimmerHexMarkerComponent> _hexQuery;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -86,7 +86,8 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
         foreach (var (marker, distance) in targets)
         {
             var weight = (1f / MathF.Max(distance, 0.01f)) / totalWeight;
-            marker.Comp.Glimmer += (int)(amount * weight); // i love casting to ints!! i love casting to ints!!!
+            //marker.Comp.Glimmer += (int)(amount * weight); // i love casting to ints!! i love casting to ints!!!
+            _glimmerHex.AddHexGlimmer(marker, (int)(amount * weight));
             Log.Info($"Added {amount * weight} glimmer to {marker.Comp.HexName} (total: {marker.Comp.Glimmer}). Distance was {distance}, weight was {weight}");
         }
     }
@@ -110,12 +111,12 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
         // look the math afterwards keeps things reasonable anyways
         var radius = 20f; //TODO: DEAR GOD PUT THIS IN MARKER COMP
 
-        Log.Info("uhmmmm... getting glimmer...");
+        //Log.Info("uhmmmm... getting glimmer...");
 
         if (ent == null)
             return (int)total; // should probably have a case for getting "global" glimmer as a fallback
 
-        Log.Info("passed null check");
+        //Log.Info("passed null check");
 
         var query = EntityQueryEnumerator<GlimmerHexMarkerComponent>();
         while (query.MoveNext(out var marker, out var comp))
@@ -124,7 +125,7 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
 
             var distance = Vector2.Distance(_transform.GetWorldPosition(ent.Value), _transform.GetWorldPosition(marker));
 
-            Log.Info($"GetGlimmer iterating over marker {comp.HexName} at distance {distance}");
+            //Log.Info($"GetGlimmer iterating over marker {comp.HexName} at distance {distance}");
 
             var t = distance / radius;
 
@@ -134,7 +135,7 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
             var falloff = 1f - t;
             falloff *= falloff;
 
-            Log.Info($"{comp.HexName} now adding {comp.Glimmer * falloff} glimmer (base: {comp.Glimmer}, falloff: {falloff})");
+            //Log.Info($"{comp.HexName} now adding {comp.Glimmer * falloff} glimmer (base: {comp.Glimmer}, falloff: {falloff})");
 
             total += comp.Glimmer * falloff;
         }
@@ -146,7 +147,6 @@ public abstract class SharedGridGlimmerSystem : EntitySystem
     /// Return an abstracted range of a glimmer count.
     /// </summary>
     /// <param name="glimmer">What glimmer count to check.</param>
-    [Obsolete("Just... don't.")]
     public GlimmerTier GetGlimmerTier(int glimmer)
     {
         return (glimmer) switch

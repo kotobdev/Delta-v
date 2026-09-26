@@ -1,8 +1,5 @@
 namespace Content.Shared._DV.Glimmer;
 
-/// <summary>
-/// This handles...
-/// </summary>
 public sealed class GlimmerHexMarkerSystem : EntitySystem
 {
     /// <inheritdoc/>
@@ -15,10 +12,17 @@ public sealed class GlimmerHexMarkerSystem : EntitySystem
     {
         entity.Comp.Glimmer = Math.Clamp(entity.Comp.Glimmer + glimmer, 0, 1000);
 
+        if(TryComp<GlimmerCorruptingComponent>(entity, out var corrupter))
+        {
+            corrupter.Enabled = entity.Comp.Glimmer >= entity.Comp.CorruptionStartThreshold;
+        }
+
         if (entity.Comp.Glimmer == 1000)
         {
             //ermmmm explode!!
         }
+
+        Dirty(entity);
     }
 
     private void HexCollapse(Entity<GlimmerHexMarkerComponent> entity)

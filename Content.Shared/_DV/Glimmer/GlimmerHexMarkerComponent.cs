@@ -15,4 +15,7 @@ public sealed partial class GlimmerHexMarkerComponent : Component // TODO: proba
 
     [DataField, AutoNetworkedField]
     public int Glimmer = 0;
+
+    [DataField]
+    public int CorruptionStartThreshold = 700;
 }

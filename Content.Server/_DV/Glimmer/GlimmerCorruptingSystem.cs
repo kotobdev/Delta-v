@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Server._DV.CosmicCult.EntitySystems;
 using Content.Shared._DV.CosmicCult.Components;
+using Content.Shared._DV.Glimmer;
 using Content.Shared.Maps;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -12,7 +13,6 @@ namespace Content.Server._DV.Glimmer;
 
 public sealed class GlimmerCorruptingSystem : EntitySystem
 {
-
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IRobustRandom _rand = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefinition = default!;
@@ -21,15 +21,8 @@ public sealed class GlimmerCorruptingSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly CosmicCorruptingSystem _cosmicCorrupting = default!;
 
-    /// <remarks>
-    ///     This system does a lot of the same things as CosmicCorruptingSystem, except in a way that's different enough
-    ///     that I felt inclined to make a separate system for it. Expect some overlap, though.
-    /// </remarks>
-    public override void Initialize()
-    {
-
-    }
-
+    // This system does a lot of the same things as CosmicCorruptingSystem, except in a way that's different enough
+    // that I felt inclined to make a separate system for it. Expect some overlap, though.
     public override void Update(float deltaTime)
     {
         base.Update(deltaTime);
@@ -45,17 +38,15 @@ public sealed class GlimmerCorruptingSystem : EntitySystem
         }
     }
 
-    public void ConvertTile(Entity<GlimmerCorruptingComponent> ent)
+    // This can iterate over the same tile multiple times, but it's not an issue worth fixing.
+    private void ConvertTile(Entity<GlimmerCorruptingComponent> ent)
     {
-        //var tilePos = _transform.GetWorldPosition(ent) + CalculateOffset(ent.Comp.Radius);
         var xform = Transform(ent);
 
         if (xform.GridUid is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var mapGrid))
             return;
 
         var tilePos = xform.Coordinates.Offset(CalculateOffset(ent.Comp.Radius));
-
-        var grid = (gridUid, mapGrid);
 
         if (_map.TryGetTileRef(gridUid, mapGrid, tilePos, out var tileRef) && tileRef.Tile.IsEmpty)
         {
@@ -76,13 +67,12 @@ public sealed class GlimmerCorruptingSystem : EntitySystem
             }
             else if (TryComp<CosmicCorruptibleComponent>(convertedEnt, out var corruptible))
             {
-                if (ent.Comp.PresetEntityConversionDict.TryGetValue(corruptible.ConvertToPreset, out var value))
-                {
-                    _cosmicCorrupting.ConvertEntity(convertedEnt, value);
+                // We're ignoring ConvertTo presets, if they exist. There's like 19 files full of them, and we don't
+                // need to add fold versions of ALL of them. Just walls, really.
+                if (!ent.Comp.PresetEntityConversionDict.TryGetValue(corruptible.ConvertToPreset, out var value))
                     continue;
-                }
 
-                _cosmicCorrupting.ConvertEntity(convertedEnt, corruptible.ConvertTo);
+                _cosmicCorrupting.ConvertEntity(convertedEnt, value);
             }
         }
     }
